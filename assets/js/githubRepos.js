@@ -8,8 +8,12 @@ const allRepos = [];
 const lazyLoadImages = () => {
   const images = document.querySelectorAll(".lazy-image");
   images.forEach((img, index) => {
+    const datasrc = img.getAttribute("data-src");
+    if (!datasrc) {
+      return;
+    }
     setTimeout(() => {
-      img.src = img.dataset.src;
+      img.src = datasrc;
       img.removeAttribute("data-src");
     }, index * 500);
   });
@@ -19,7 +23,7 @@ const createRepoCard = (repo) => {
   const description = repo.description ? repo.description : "Sem descrição disponível.";
   return `
         <article class="jjs-bg-white jjs-rounded-xl jjs-shadow hover:jjs-shadow-md jjs-transition-shadow jjs-overflow-hidden jjs-flex jjs-flex-col">
-            <img data-src="https://opengraph.githubassets.com/a/${GITHUB_USERNAME}/${repo.name}" alt="Imagem do Repositório ${repo.name}" class="lazy-image jjs-w-full jjs-h-48 jjs-object-cover jjs-flex-none" loading="lazy" />
+            <img data-src="https://opengraph.githubassets.com/a/${GITHUB_USERNAME}/${repo.name}" src="./assets/img/place.png" alt="Imagem do Repositório ${repo.name}" class="lazy-image jjs-w-full jjs-h-48 jjs-object-cover jjs-flex-none" loading="lazy" />
             <div class="jjs-p-6 jjs-flex jjs-flex-col jjs-flex-1">
                 <h3 class="jjs-text-xl jjs-font-bold jjs-text-gray-900 jjs-mb-2">${repo.name}</h3>
                 <p class="jjs-text-gray-600 jjs-mb-4">${description}</p>
@@ -87,16 +91,16 @@ const renderPage = (pageNumber = 1) => {
   const startIndex = (pageNumber - 1) * REPOS_PER_PAGE;
   const repos = allRepos.slice(startIndex, startIndex + REPOS_PER_PAGE);
 
-  repos.forEach((repo) => {
+  for (const repo of repos) {
     const repoCardHTML = createRepoCard(repo);
     const wrapper = document.createElement("div");
     wrapper.innerHTML = repoCardHTML;
     reposContainer.appendChild(wrapper.firstElementChild);
-  });
+  }
 
   setTimeout(() => {
     lazyLoadImages();
-  }, 1000);
+  }, 500);
 
   if (document.querySelector("#current-page") && document.querySelector("#total-pages")) {
     const currentPage = document.querySelector("#current-page");

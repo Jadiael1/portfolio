@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Portfólio profissional de Jadiael Juvino, engenheiro de software em Pernambuco, Brasil." />
+    <meta name="author" content="Jadiael Juvino" />
+    <!-- Título da página -->
+    <title>Portfólio | Jadiael Juvino</title>
+    <!-- TailwindCSS CDN (opcional) -->
+    <link rel="stylesheet" href="./assets/css/tailwind.min.css" />
+    <!-- Fonte e ícones -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" />
+    <!-- Favicon (ajuste conforme desejar) -->
+    <link rel="shortcut icon" href="./assets/img/portifolio.png" type="image/x-icon" />
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+      }
+
+      /* Barra de rolagem customizada (opcional) */
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #0ea5e9;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: #0284c7;
+      }
+
+      * {
+        scrollbar-width: thin;
+        scrollbar-color: #0ea5e9 #f1f1f1;
+      }
+    </style>
+  </head>
+
+  <body class="jjs-bg-white jjs-text-gray-800 jjs-min-h-screen jjs-relative">
+    <!-- Fundo decorativo (opcional) -->
+    <div class="jjs-absolute jjs-inset-0 jjs--z-10 jjs-h-full jjs-w-full jjs-bg-white jjs-bg-[radial-gradient(#0ea5e9,transparent_1px)] jjs-[background-size:16px_16px]"></div>
+    <!-- Início do Header -->
+    <header class="jjs-p-6 jjs-bg-white jjs-shadow-sm">
+      <nav class="jjs-max-w-6xl jjs-mx-auto jjs-flex jjs-justify-between jjs-items-center">
+        <!-- Logo ou Nome -->
+        <div class="jjs-text-2xl md:jjs-text-3xl jjs-font-bold jjs-tracking-tight">
+          <span class="jjs-cursor-pointer" id="logo"> <span class="jjs-text-sky-500">JADIAEL</span> JUVINO </span>
+        </div>
+
+        <!-- Menu simples, pode aprimorar se quiser com dropdown ou hamburguer -->
+        <ul class="jjs-hidden md:jjs-flex jjs-gap-6 jjs-text-lg jjs-font-medium">
+          <li><a href="#sobre" class="hover:jjs-text-sky-500 jjs-transition-colors">Sobre</a></li>
+          <li><a href="#habilidades" class="hover:jjs-text-sky-500 jjs-transition-colors">Habilidades</a></li>
+          <li><a href="#projetos" class="hover:jjs-text-sky-500 jjs-transition-colors">Projetos</a></li>
+          <li><a href="#contato" class="hover:jjs-text-sky-500 jjs-transition-colors">Contato</a></li>
+        </ul>
+
+        <!-- Menu responsivo "hamburguer" - este é um demonstrativo simples -->
+        <button class="md:jjs-hidden jjs-text-2xl jjs-text-gray-700 hover:jjs-text-sky-500 jjs-transition-colors">
+          <i class="bx bx-menu"></i>
+        </button>
+      </nav>
+    </header>
+    <!-- Fim do Header -->
+    <!-- Seção Hero -->
+    <section class="jjs-mt-10 jjs-px-6">
+      <div class="jjs-max-w-5xl jjs-mx-auto jjs-flex jjs-flex-col jjs-items-center jjs-text-center">
+        <!-- Foto ou Avatar -->
+        <div class="jjs-w-40 jjs-h-40 md:jjs-w-52 md:jjs-h-52 jjs-rounded-full jjs-overflow-hidden jjs-border-4 jjs-border-sky-500 jjs-shadow-lg jjs-mb-6">
+          <!-- Troque pelo caminho da sua imagem -->
+          <img src="./assets/img/jadiael.jpg" alt="Foto de Jadiael" class="jjs-w-full jjs-h-full jjs-object-cover" />
+        </div>
+        <!-- Apresentação -->
+        <h1 class="jjs-text-3xl md:jjs-text-5xl jjs-font-bold jjs-text-gray-900 jjs-mb-4">Engenheiro de Software e Entusiasta de Tecnologia</h1>
+        <p class="jjs-text-lg md:jjs-text-xl jjs-text-gray-700 jjs-max-w-3xl jjs-mx-auto jjs-mb-8">
+          Olá! Sou <strong class="jjs-text-sky-500">Jadiael Juvino</strong>, desenvolvedor e engenheiro de software residente em Palmares, Pernambuco, Brasil, Tenho experiência com
+          <strong>C#, JavaScript, NestJS, MariaDB/Mysql, Oracle Database, WordPress, PHP, Laravel</strong>
+          e <strong>Jira</strong>. Minha paixão é criar soluções eficazes e escaláveis, sempre visando crescimento pessoal e inovação.
+        </p>
+
+        <div class="jjs-flex jjs-flex-col sm:jjs-flex-row jjs-gap-4 jjs-justify-center">
+          <!-- Link para download de CV (adicione seu PDF real) -->
+          <a href="./assets/pdf/jadiael_cv.pdf" target="_blank" rel="noopener noreferrer" class="jjs-inline-flex jjs-items-center jjs-justify-center jjs-px-6 jjs-py-3 jjs-bg-white jjs-text-sky-500 jjs-border-2 jjs-border-sky-500 jjs-rounded-lg jjs-shadow-lg hover:jjs-bg-sky-500 hover:jjs-text-white jjs-transition-all jjs-duration-300">
+            <i class="bx bx-download jjs-mr-2 jjs-text-xl"></i>
+            <span class="jjs-font-medium">Download CV</span>
+          </a>
+          <!-- Botão para ver projetos (pode rolar a página até a seção de projetos) -->
+          <a href="#projetos" class="jjs-inline-flex jjs-items-center jjs-justify-center jjs-px-6 jjs-py-3 jjs-bg-sky-500 jjs-text-white jjs-border-2 jjs-border-sky-500 jjs-rounded-lg jjs-shadow-lg hover:jjs-bg-white hover:jjs-text-sky-500 jjs-transition-all jjs-duration-300">
+            <i class="bx bx-code-alt jjs-mr-2 jjs-text-xl"></i>
+            <span class="jjs-font-medium">Ver Projetos</span>
+          </a>
+        </div>
+      </div>
+    </section>
+    <!-- Fim da Seção Hero -->
+    <!-- Seção Sobre -->
+    <section id="sobre" class="jjs-mt-20 jjs-px-6">
+      <div class="jjs-max-w-5xl jjs-mx-auto jjs-text-center">
+        <h2 class="jjs-text-4xl jjs-font-bold jjs-text-gray-900 jjs-mb-6">Sobre Mim</h2>
+        <p class="jjs-text-lg jjs-text-gray-700 jjs-leading-relaxed jjs-max-w-3xl jjs-mx-auto">Sempre busco aprimorar meus conhecimentos, seja desenvolvendo soluções em <strong>C#</strong>, criando aplicações <strong>Node.js/NestJS</strong>, criando aplicações <strong>PHP</strong>, ou administrando bancos de dados como <strong>MariaDB</strong> e <strong>Oracle</strong>. Também possuo experiência com <strong>WordPress</strong> para criação e manutenção de sites dinâmicos. Meu foco está na eficiência e escalabilidade dos projetos, juntamente com uma preocupação constante com a experiência do usuário (UI/UX).</p>
+        <p class="jjs-text-lg jjs-text-gray-700 jjs-leading-relaxed jjs-max-w-3xl jjs-mx-auto jjs-mt-4">Fora do trabalho, dedico tempo aos meus hobbies, estudar novas tendências de tecnologia. Minha motivação diária é evolução contínua, tanto profissional quanto pessoal.</p>
+      </div>
+    </section>
+    <!-- Fim da Seção Sobre -->
+    <!-- Seção Habilidades -->
+    <section id="habilidades" class="jjs-mt-20 jjs-bg-gray-50 jjs-py-12 jjs-px-6">
+      <div class="jjs-max-w-6xl jjs-mx-auto">
+        <h2 class="jjs-text-4xl jjs-font-bold jjs-text-center jjs-text-gray-900 jjs-mb-10">Habilidades & Ferramentas</h2>
+        <div class="jjs-grid jjs-grid-cols-1 md:jjs-grid-cols-2 lg:jjs-grid-cols-3 jjs-gap-8">
+          <!-- Habilidade 1 -->
+          <div class="jjs-bg-white jjs-p-6 jjs-rounded-xl jjs-shadow hover:jjs-shadow-md jjs-transition-shadow">
+            <div class="jjs-flex jjs-items-center jjs-gap-4 jjs-mb-4">
+              <i class="bx bxl-microsoft jjs-text-3xl jjs-text-sky-500"></i>
+              <h3 class="jjs-text-xl jjs-font-bold jjs-text-gray-900">C#</h3>
+            </div>
+            <p class="jjs-text-gray-600">Desenvolvimento de aplicações e serviços utilizando C#, voltados para diversas plataformas .NET.</p>
+          </div>
+          <!-- Habilidade 2 -->
+          <div class="jjs-bg-white jjs-p-6 jjs-rounded-xl jjs-shadow hover:jjs-shadow-md jjs-transition-shadow">
+            <div class="jjs-flex jjs-items-center jjs-gap-4 jjs-mb-4">
+              <i class="bx bxl-javascript jjs-text-3xl jjs-text-sky-500"></i>
+              <h3 class="jjs-text-xl jjs-font-bold jjs-text-gray-900">JavaScript / NestJS</h3>
+            </div>
+            <p class="jjs-text-gray-600">Desenvolvimento de aplicações escaláveis em JavaScript e NestJS para back-end robusto e estruturado.</p>
+          </div>
+          <!-- Habilidade 3 -->
+          <div class="jjs-bg-white jjs-p-6 jjs-rounded-xl jjs-shadow hover:jjs-shadow-md jjs-transition-shadow">
+            <div class="jjs-flex jjs-items-center jjs-gap-4 jjs-mb-4">
+              <i class="bx bxs-data jjs-text-3xl jjs-text-sky-500"></i>
+              <h3 class="jjs-text-xl jjs-font-bold jjs-text-gray-900">MariaDB & Oracle</h3>
+            </div>
+            <p class="jjs-text-gray-600">Modelagem e administração de bancos de dados, garantindo integridade, segurança e alto desempenho.</p>
+          </div>
+          <!-- Habilidade 4 -->
+          <div class="jjs-bg-white jjs-p-6 jjs-rounded-xl jjs-shadow hover:jjs-shadow-md jjs-transition-shadow">
+            <div class="jjs-flex jjs-items-center jjs-gap-4 jjs-mb-4">
+              <i class="bx bx-code-alt jjs-text-3xl jjs-text-sky-500"></i>
+              <h3 class="jjs-text-xl jjs-font-bold jjs-text-gray-900">WordPress & PHP</h3>
+            </div>
+            <p class="jjs-text-gray-600">Criação e manutenção de sites dinâmicos com alto desempenho, utilizando versões recentes do WordPress e PHP.</p>
+          </div>
+          <!-- Habilidade 5 -->
+          <div class="jjs-bg-white jjs-p-6 jjs-rounded-xl jjs-shadow hover:jjs-shadow-md jjs-transition-shadow">
+            <div class="jjs-flex jjs-items-center jjs-gap-4 jjs-mb-4">
+              <i class="bx bx-code-alt jjs-text-3xl jjs-text-sky-500"></i>
+              <h3 class="jjs-text-xl jjs-font-bold jjs-text-gray-900">Laravel & PHP</h3>
+            </div>
+            <p class="jjs-text-gray-600">Desenvolvimento de aplicações e serviços utilizando Laravel</p>
+          </div>
+          <!-- Habilidade 6 -->
+          <div class="jjs-bg-white jjs-p-6 jjs-rounded-xl jjs-shadow hover:jjs-shadow-md jjs-transition-shadow">
+            <div class="jjs-flex jjs-items-center jjs-gap-4 jjs-mb-4">
+              <i class="bx bx-task jjs-text-3xl jjs-text-sky-500"></i>
+              <h3 class="jjs-text-xl jjs-font-bold jjs-text-gray-900">Jira</h3>
+            </div>
+            <p class="jjs-text-gray-600">Ferramenta essencial no dia a dia para gerenciamento de projetos, tracking de tarefas e sprints.</p>
+          </div>
+          <!-- Habilidade 7 -->
+          <div class="jjs-bg-white jjs-p-6 jjs-rounded-xl jjs-shadow hover:jjs-shadow-md jjs-transition-shadow">
+            <div class="jjs-flex jjs-items-center jjs-gap-4 jjs-mb-4">
+              <i class="bx bx-world jjs-text-3xl jjs-text-sky-500"></i>
+              <h3 class="jjs-text-xl jjs-font-bold jjs-text-gray-900">Front-End</h3>
+            </div>
+            <p class="jjs-text-gray-600">Conhecimentos sólidos em HTML5, CSS3, JavaScript e boas práticas de UX, mantendo o foco na responsividade.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Fim da Seção Habilidades -->
+    <!-- Seção Projetos -->
+    <section id="projetos" class="jjs-mt-20 jjs-px-6">
+      <div class="jjs-max-w-6xl jjs-mx-auto">
+        <h2 class="jjs-text-4xl jjs-font-bold jjs-text-center jjs-text-gray-900 jjs-mb-10">Projetos em Destaque</h2>
+        <div class="jjs-grid jjs-grid-cols-1 sm:jjs-grid-cols-2 jjs-gap-8" id="repos-container"></div>
+      </div>
+    </section>
+    <!-- Fim da Seção Projetos -->
+    <!-- Seção Contato -->
+    <section id="contato" class="jjs-mt-20 jjs-bg-gray-50 jjs-py-12 jjs-px-6">
+      <div class="jjs-max-w-5xl jjs-mx-auto">
+        <h2 class="jjs-text-4xl jjs-font-bold jjs-text-center jjs-text-gray-900 jjs-mb-8">Entre em Contato</h2>
+        <p class="jjs-text-center jjs-text-gray-700 jjs-mb-10">Vamos trabalhar juntos? Fique à vontade para enviar uma mensagem!</p>
+        <div class="jjs-max-w-3xl jjs-mx-auto">
+          <form action="https://api.whatsapp.com/send/" method="GET" id="form-contact" class="jjs-bg-white jjs-p-6 jjs-rounded-xl jjs-shadow jjs-space-y-4">
+            <input type="hidden" name="phone" value="+5581995207789" />
+            <div>
+              <label for="nome" class="jjs-block jjs-text-gray-700 jjs-font-medium jjs-mb-1">Nome</label>
+              <input type="text" id="nome" name="nome" required class="jjs-w-full jjs-px-4 jjs-py-2 jjs-border jjs-rounded focus:jjs-outline-none focus:jjs-ring-2 focus:jjs-ring-sky-500" />
+            </div>
+            <div>
+              <label for="email" class="jjs-block jjs-text-gray-700 jjs-font-medium jjs-mb-1">Email</label>
+              <input type="email" id="email" name="email" required class="jjs-w-full jjs-px-4 jjs-py-2 jjs-border jjs-rounded focus:jjs-outline-none focus:jjs-ring-2 focus:jjs-ring-sky-500" />
+            </div>
+            <div>
+              <label for="mensagem" class="jjs-block jjs-text-gray-700 jjs-font-medium jjs-mb-1">Mensagem</label>
+              <textarea id="mensagem" name="mensagem" rows="5" required class="jjs-w-full jjs-px-4 jjs-py-2 jjs-border jjs-rounded focus:jjs-outline-none focus:jjs-ring-2 focus:jjs-ring-sky-500"></textarea>
+            </div>
+            <button type="submit" class="jjs-px-6 jjs-py-3 jjs-bg-sky-500 jjs-text-white jjs-font-medium jjs-rounded hover:jjs-bg-sky-600 jjs-transition-colors jjs-inline-flex jjs-items-center"><i class="bx bxl-whatsapp bx-sm jjs-text-2xl jjs-mr-2"></i>Enviar Mensagem</button>
+          </form>
+        </div>
+      </div>
+    </section>
+    <!-- Fim da Seção Contato -->
+
+    <!-- Footer -->
+    <footer class="jjs-mt-20 jjs-border-t jjs-border-gray-200">
+      <div class="jjs-max-w-6xl jjs-mx-auto jjs-px-6 jjs-py-12">
+        <div class="jjs-grid jjs-grid-cols-1 md:jjs-grid-cols-3 jjs-gap-8">
+          <!-- Sobre -->
+          <div>
+            <h3 class="jjs-text-xl jjs-font-bold jjs-text-gray-900 jjs-mb-4">Jadiael Juvino</h3>
+            <p class="jjs-text-gray-600 jjs-mb-4">Engenheiro de Software e apaixonado por tecnologia, sempre em busca de soluções inovadoras e crescimento pessoal.</p>
+            <div class="jjs-flex jjs-space-x-4">
+              <a href="https://github.com/Jadiael1" class="jjs-text-gray-600 hover:jjs-text-sky-500 jjs-transition-colors" aria-label="GitHub">
+                <i class="bx bxl-github jjs-text-2xl"></i>
+              </a>
+              <a href="https://www.linkedin.com/in/jadiael/" class="jjs-text-gray-600 hover:jjs-text-sky-500 jjs-transition-colors" aria-label="LinkedIn">
+                <i class="bx bxl-linkedin-square jjs-text-2xl"></i>
+              </a>
+              <!-- Copiar email (opcional) -->
+              <button onclick="navigator.clipboard.writeText('jadiael1@gmail.com')" class="jjs-text-gray-600 hover:jjs-text-sky-500 jjs-transition-colors" aria-label="Copiar email">
+                <i class="bx bx-envelope jjs-text-2xl"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Links Rápidos -->
+          <div>
+            <h3 class="jjs-text-xl jjs-font-bold jjs-text-gray-900 jjs-mb-4">Links Rápidos</h3>
+            <ul class="jjs-space-y-2">
+              <li><a href="#" class="jjs-text-gray-600 hover:jjs-text-sky-500 jjs-transition-colors">Home</a></li>
+              <li><a href="#habilidades" class="jjs-text-gray-600 hover:jjs-text-sky-500 jjs-transition-colors">Habilidades</a></li>
+              <li><a href="#projetos" class="jjs-text-gray-600 hover:jjs-text-sky-500 jjs-transition-colors">Projetos</a></li>
+              <li><a href="#contato" class="jjs-text-gray-600 hover:jjs-text-sky-500 jjs-transition-colors">Contato</a></li>
+            </ul>
+          </div>
+
+          <!-- Contato -->
+          <div class="jjs-flex jjs-flex-col">
+            <h3 class="jjs-text-xl jjs-font-bold jjs-text-gray-900 jjs-mb-4">Contato</h3>
+            <p class="jjs-text-gray-600 jjs-mb-2">Quer conversar sobre um projeto ou oportunidade?</p>
+            <a href="https://api.whatsapp.com/send/?phone=%2B5581995207789&text=Estou%20entrando%20em%20contato%20a%20partir%20do%20seu%20portifolio&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer" class="jjs-inline-flex jjs-items-center jjs-text-sky-500 hover:jjs-text-sky-600 jjs-transition-colors">
+              <i class="bx bxl-whatsapp jjs-mr-2"></i>
+              <span>Enviar mensagem</span>
+            </a>
+            <a href="mailto:jadiael1@gmail.com" class="jjs-inline-flex jjs-items-center jjs-text-sky-500 hover:jjs-text-sky-600 jjs-transition-colors">
+              <i class="bx bx-send jjs-mr-2"></i>
+              <span>Enviar mensagem</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="jjs-mt-12 jjs-pt-8 jjs-border-t jjs-border-gray-200">
+          <p class="jjs-text-center jjs-text-gray-600">© 2025 <strong>Jadiael Juvino</strong>. Feito com <span class="jjs-text-red-500">♥</span> e muita <span class="jjs-text-sky-500">dedicação</span>.</p>
+        </div>
+      </div>
+    </footer>
+    <!-- Fim do Footer -->
+    <!-- Botão de voltar ao topo (opcional) -->
+    <button id="backToTop" class="jjs-fixed jjs-bottom-8 jjs-right-8 jjs-bg-sky-500 jjs-text-white jjs-p-4 jjs-rounded-full jjs-shadow-lg hover:jjs-shadow-xl jjs-transition-all jjs-duration-300 jjs-opacity-0 jjs-invisible" aria-label="Voltar ao topo">
+      <i class="bx bx-up-arrow-alt jjs-text-2xl"></i>
+    </button>
+    <script src="./assets/js/confetti.browser.js"></script>
+    <script src="./assets/js/main.js"></script>
+    <script src="./assets/js/githubRepos.js"></script>
+  </body>
+</html>

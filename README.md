@@ -49,6 +49,8 @@ Este portfólio conta com uma estrutura **HTML** + **CSS (Tailwind)** + **JavaSc
    - Exibe um botão flutuante quando o usuário faz scroll na página.  
    - Ao ser clicado, leva suavemente a rolagem de volta ao topo.
 
+6. **Logica para carregar as imagens do opengraph de cada repositorio**
+   - lazy loading para carregamento das imagens e logica adicional para popular o src a partir do atributo data-src
 ---
 
 ## Estrutura de Pastas

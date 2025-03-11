@@ -4,6 +4,11 @@ Bem-vindo(a) ao repositório do meu portfólio! Este projeto foi desenvolvido co
 
 ---
 
+## Acesse o Portfólio em produção
+[jadiael.dev](https://jadiael.dev/)
+
+---
+
 ## Visão Geral
 
 Este portfólio conta com uma estrutura **HTML** + **CSS (Tailwind)** + **JavaScript** para exibição das minhas principais informações profissionais, como:
@@ -79,9 +84,9 @@ Exemplo de organização (resumida) do projeto:
 ## Como Usar
 
 1. **Clone o Repositório**  
-   (```)
-   git clone https://github.com/SEU_USUARIO/SEU_PORTFOLIO.git
-   (```)
+   ```
+   git clone https://github.com/Jadiael1/portfolio.git
+   ```
 
 2. **Abra o `index.html`**  
    Basta abrir o arquivo `index.html` no seu navegador preferido ou hospedar em um servidor local (ex.: Live Server do VSCode).

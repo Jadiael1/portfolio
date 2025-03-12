@@ -22,14 +22,14 @@ const lazyLoadImages = () => {
 const createRepoCard = (repo) => {
   const description = repo.description ? repo.description : "Sem descrição disponível.";
   return `
-        <article class="jjs-bg-white jjs-rounded-xl jjs-shadow hover:jjs-shadow-md jjs-transition-shadow jjs-overflow-hidden jjs-flex jjs-flex-col">
-            <img data-src="https://opengraph.githubassets.com/a/${GITHUB_USERNAME}/${repo.name}" src="./assets/img/place.png" alt="Imagem do Repositório ${repo.name}" class="lazy-image jjs-w-full jjs-h-48 jjs-object-cover jjs-flex-none" loading="lazy" />
-            <div class="jjs-p-6 jjs-flex jjs-flex-col jjs-flex-1">
-                <h3 class="jjs-text-xl jjs-font-bold jjs-text-gray-900 jjs-mb-2">${repo.name}</h3>
-                <p class="jjs-text-gray-600 jjs-mb-4">${description}</p>
-                <p class="jjs-text-sm jjs-text-gray-500 jjs-mb-4">Linguagem: ${repo.language || "Não especificada"}</p>
-                <div class="jjs-mt-auto">
-                    <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="jjs-text-sky-500 hover:jjs-text-sky-600 jjs-transition-colors jjs-font-medium" > Ver Detalhes</a>
+        <article class="jjs:bg-white jjs:rounded-xl jjs:shadow jjs:hover:shadow-md jjs:transition-shadow jjs:overflow-hidden jjs:flex jjs:flex-col">
+            <img data-src="https://opengraph.githubassets.com/a/${GITHUB_USERNAME}/${repo.name}" src="./assets/img/place.png" alt="Imagem do Repositório ${repo.name}" class="lazy-image jjs:w-full jjs:h-48 jjs:object-cover jjs:flex-none" loading="lazy" />
+            <div class="jjs:p-6 jjs:flex jjs:flex-col jjs:flex-1">
+                <h3 class="jjs:text-xl jjs:font-bold jjs:text-gray-900 jjs:mb-2">${repo.name}</h3>
+                <p class="jjs:text-gray-600 jjs:mb-4">${description}</p>
+                <p class="jjs:text-sm jjs:text-gray-500 jjs:mb-4">Linguagem: ${repo.language || "Não especificada"}</p>
+                <div class="jjs:mt-auto">
+                    <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="jjs:text-sky-500 jjs:hover:text-sky-600 jjs:transition-colors jjs:font-medium" > Ver Detalhes</a>
                 </div>
             </div>
         </article> 
@@ -114,10 +114,10 @@ const createPaginationIfNotExists = (page = 1) => {
   const reposContainer = document.querySelector("#repos-container");
   const totalPages = Math.ceil(allRepos.length / REPOS_PER_PAGE);
   const paginationHTML = `
-    <div class="jjs-mt-8 jjs-flex jjs-justify-center jjs-items-center jjs-gap-4" id="pagination">
-        <button id="prevPageBtn" class="jjs-px-4 jjs-py-2 jjs-bg-sky-500 jjs-text-white jjs-rounded hover:jjs-bg-sky-600 jjs-transition-colors">Anterior</button>
-        <span class="jjs-text-sm jjs-text-gray-700">Página <span id="current-page">${page}</span> de <span id="total-pages">${totalPages}</span></span>
-        <button id="nextPageBtn" class="jjs-px-4 jjs-py-2 jjs-bg-sky-500 jjs-text-white jjs-rounded hover:jjs-bg-sky-600 jjs-transition-colors">Próximo</button>
+    <div class="jjs:mt-8 jjs:flex jjs:justify-center jjs:items-center jjs:gap-4" id="pagination">
+        <button id="prevPageBtn" class="jjs:px-4 jjs:py-2 jjs:bg-sky-500 jjs:text-white jjs:rounded jjs:hover:bg-sky-600 jjs:transition-colors">Anterior</button>
+        <span class="jjs:text-sm jjs:text-gray-700">Página <span id="current-page">${page}</span> de <span id="total-pages">${totalPages}</span></span>
+        <button id="nextPageBtn" class="jjs:px-4 jjs:py-2 jjs:bg-sky-500 jjs:text-white jjs:rounded jjs:hover:bg-sky-600 jjs:transition-colors">Próximo</button>
     </div>
   `;
   if (!document.querySelector("#pagination")) {
@@ -130,33 +130,33 @@ const toggleButtonState = (element, page) => {
   const nextPageNumber = page + 1;
   if (nextPageNumber > totalPages && element.getAttribute("id") && element.getAttribute("id") === "nextPageBtn") {
     element.disabled = true;
-    element.classList.add("jjs-bg-gray-500");
-    element.classList.add("hover:jjs-bg-gray-600");
-    element.classList.add("jjs-cursor-not-allowed");
-    element.classList.remove("jjs-bg-sky-500");
-    element.classList.remove("hover:jjs-bg-sky-600");
+    element.classList.add("jjs:bg-gray-500");
+    element.classList.add("jjs:hover:bg-gray-600");
+    element.classList.add("jjs:cursor-not-allowed");
+    element.classList.remove("jjs:bg-sky-500");
+    element.classList.remove("jjs:hover:bg-sky-600");
   } else if (element.getAttribute("id") && element.getAttribute("id") === "nextPageBtn") {
     element.disabled = false;
-    element.classList.add("jjs-bg-sky-500");
-    element.classList.add("hover:jjs-bg-sky-600");
-    element.classList.remove("jjs-bg-gray-500");
-    element.classList.remove("hover:jjs-bg-gray-600");
-    element.classList.remove("jjs-cursor-not-allowed");
+    element.classList.add("jjs:bg-sky-500");
+    element.classList.add("jjs:hover:bg-sky-600");
+    element.classList.remove("jjs:bg-gray-500");
+    element.classList.remove("jjs:hover:bg-gray-600");
+    element.classList.remove("jjs:cursor-not-allowed");
   }
   if (page <= 1 && element.getAttribute("id") && element.getAttribute("id") === "prevPageBtn") {
     element.disabled = true;
-    element.classList.add("jjs-bg-gray-500");
-    element.classList.add("hover:jjs-bg-gray-600");
-    element.classList.add("jjs-cursor-not-allowed");
-    element.classList.remove("jjs-bg-sky-500");
-    element.classList.remove("hover:jjs-bg-sky-600");
+    element.classList.add("jjs:bg-gray-500");
+    element.classList.add("jjs:hover:bg-gray-600");
+    element.classList.add("jjs:cursor-not-allowed");
+    element.classList.remove("jjs:bg-sky-500");
+    element.classList.remove("jjs:hover:bg-sky-600");
   } else if (element.getAttribute("id") && element.getAttribute("id") === "prevPageBtn") {
     element.disabled = false;
-    element.classList.add("jjs-bg-sky-500");
-    element.classList.add("hover:jjs-bg-sky-600");
-    element.classList.remove("jjs-bg-gray-500");
-    element.classList.remove("hover:jjs-bg-gray-600");
-    element.classList.remove("jjs-cursor-not-allowed");
+    element.classList.add("jjs:bg-sky-500");
+    element.classList.add("jjs:hover:bg-sky-600");
+    element.classList.remove("jjs:bg-gray-500");
+    element.classList.remove("jjs:hover:bg-gray-600");
+    element.classList.remove("jjs:cursor-not-allowed");
   }
 };
 

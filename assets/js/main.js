@@ -4,9 +4,9 @@
 const backToTopBtn = document.querySelector("#backToTop");
 window.addEventListener("scroll", () => {
   if (window.scrollY > 300) {
-    backToTopBtn.classList.remove("jjs-opacity-0", "jjs-invisible");
+    backToTopBtn.classList.remove("jjs:opacity-0", "jjs:invisible");
   } else {
-    backToTopBtn.classList.add("jjs-opacity-0", "jjs-invisible");
+    backToTopBtn.classList.add("jjs:opacity-0", "jjs:invisible");
   }
 });
 

@@ -19,6 +19,10 @@ jobs:
           echo "${{ secrets.VPS_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -p ${{ secrets.VPS_SSH_PORT }} ${{ secrets.VPS_SSH_HOST }} >> ~/.ssh/known_hosts
+      
+      - name: Clean VPS directory
+        run: |
+          ssh -o StrictHostKeyChecking=no -p ${{ secrets.VPS_SSH_PORT }} ${{ secrets.VPS_SSH_USER }}@${{ secrets.VPS_SSH_HOST }} "find ${{ secrets.VPS_APP_DIR }} -mindepth 1 -exec rm -rf {} +"
 
       - name: Sync Files to VPS
         run: |

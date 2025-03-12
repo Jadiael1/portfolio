@@ -56,6 +56,9 @@ Este portfólio conta com uma estrutura **HTML** + **CSS (Tailwind)** + **JavaSc
 
 6. **Logica para carregar as imagens do opengraph de cada repositorio**
    - lazy loading para carregamento das imagens e logica adicional para popular o src a partir do atributo data-src
+
+7. **Automatização de deploy com GitHub Actions**
+   - foi criado um arquivo de deploy para sempre que a branch main receber algo novo realizar o deploy automatico para que seja refletido em [produção](https://jadiael.dev)
 ---
 
 ## Estrutura de Pastas

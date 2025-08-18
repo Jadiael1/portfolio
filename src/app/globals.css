@@ -41,6 +41,9 @@
 		--skill-bg: 210 40% 98%;
 		--project-bg: 0 0% 100%;
 
+		--whatsapp: 135 65% 45%; 
+        --whatsapp-glow: 135 60% 55%;
+
 		/* Gradients */
 		--gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
 		--gradient-hero: linear-gradient(135deg, hsl(220 13% 18%), hsl(215 28% 17%));
@@ -114,6 +117,9 @@
 		--color-skill-bg: hsl(var(--skill-bg));
 		--color-project-bg: hsl(var(--project-bg));
 
+		--color-whatsapp: hsl(var(--whatsapp));
+        --color-whatsapp-glow: hsl(var(--whatsapp-glow));
+
 		/* sidebar (namespace) */
 		--color-sidebar: hsl(var(--sidebar-background));
 		--color-sidebar-foreground: hsl(var(--sidebar-foreground));
@@ -186,7 +192,8 @@
 		--sidebar-border: 240 3.7% 15.9%;
 		--sidebar-ring: 217.2 91.2% 59.8%;
 	}
-
+	
+	/*
 	@media (prefers-color-scheme: dark) {
 		:root {
 			--background: 222.2 84% 4.9%;
@@ -244,6 +251,7 @@
 			--sidebar-ring: 217.2 91.2% 59.8%;
 		}
 	}
+	*/
 }
 
 @layer base {

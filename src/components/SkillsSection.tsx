@@ -15,15 +15,16 @@ const skills: Skill[] = [
 	{
 		icon: Server,
 		title: 'Backend Development',
-		description: 'Desenvolvimento de aplicações robustas e escaláveis com foco em performance.',
-		technologies: ['C#', '.NET', 'NestJS', 'Node.js'],
-		level: 90,
+		description:
+			'Desenvolvimento de aplicações robustas, manutenível, escaláveis com foco em performance e resultados.',
+		technologies: ['C#', '.NET', 'PHP', 'NestJS', 'Node.js'],
+		level: 98,
 	},
 	{
 		icon: Database,
 		title: 'Banco de Dados',
 		description: 'Modelagem e administração de bancos, garantindo integridade e alto desempenho.',
-		technologies: ['MariaDB', 'MySQL', 'Oracle', 'SQL Server'],
+		technologies: ['OracleDB', 'MariaDB', 'MySQL'],
 		level: 85,
 	},
 	{
@@ -31,20 +32,20 @@ const skills: Skill[] = [
 		title: 'PHP & Laravel',
 		description: 'Desenvolvimento de aplicações web modernas e APIs RESTful com Laravel.',
 		technologies: ['PHP', 'Laravel', 'Composer', 'Artisan'],
-		level: 88,
+		level: 97,
 	},
 	{
 		icon: Globe,
 		title: 'WordPress & CMS',
 		description: 'Criação e manutenção de sites dinâmicos com alto desempenho e SEO.',
-		technologies: ['WordPress', 'Custom Themes', 'Plugins', 'WooCommerce'],
+		technologies: ['WordPress', 'Custom Themes', 'Custom Plugins', 'Plugins', 'WooCommerce'],
 		level: 82,
 	},
 	{
 		icon: Layers,
 		title: 'Frontend Development',
 		description: 'Interfaces responsivas e modernas com foco na experiência do usuário.',
-		technologies: ['HTML5', 'CSS3', 'JavaScript', 'React'],
+		technologies: ['HTML', 'CSS', 'JavaScript', 'React', 'React Native', 'Next'],
 		level: 78,
 	},
 	{

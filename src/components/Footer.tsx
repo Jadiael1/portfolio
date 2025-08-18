@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
 import Github from '@/components/assets/svgs/Github';
 import Linkedin from '@/components/assets/svgs/Linkedin';
+import WhatsAppWidget from '@/components/WhatsAppWidget';
 
 const Footer = () => {
 	const [showBackToTop, setShowBackToTop] = useState(false);
@@ -71,7 +72,7 @@ const Footer = () => {
 								<h3 className='text-2xl font-bold mb-4 gradient-text'>Jadiael Juvino</h3>
 								<p className='text-hero-text/80 leading-relaxed'>
 									Engenheiro de Software apaixonado por tecnologia, sempre em busca de soluções inovadoras e crescimento
-									pessoal. Baseado em Pernambuco, Brasil.
+									pessoal.
 								</p>
 							</div>
 
@@ -175,12 +176,13 @@ const Footer = () => {
 			{showBackToTop && (
 				<Button
 					onClick={scrollToTop}
-					className='fixed bottom-8 right-8 z-50 w-12 h-12 rounded-full bg-primary hover:bg-primary-glow text-secondary shadow-lg hover:shadow-xl transition-all duration-300 animate-bounce cursor-pointer'
+					className='fixed bottom-25 right-8 z-50 w-12 h-12 rounded-full bg-primary hover:bg-primary-glow text-secondary shadow-lg hover:shadow-xl transition-all duration-300 animate-bounce cursor-pointer'
 					aria-label='Voltar ao topo'
 				>
 					<ArrowUp className='h-6 w-6' />
 				</Button>
 			)}
+			<WhatsAppWidget />
 		</>
 	);
 };

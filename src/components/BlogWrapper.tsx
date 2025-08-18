@@ -39,7 +39,7 @@ const BlogWrapper = ({ uuid }: TBlogWrapperProps) => {
 				}
 
 				setIsLoading(false);
-			}, 800);
+			}, 1);
 		}
 	}, [id]);
 
@@ -134,7 +134,7 @@ const BlogWrapper = ({ uuid }: TBlogWrapperProps) => {
 					<h1 className='text-2xl font-bold text-foreground mb-4'>Artigo não encontrado</h1>
 					<p className='text-muted-foreground mb-8'>O artigo que você está procurando não existe ou foi removido.</p>
 					<Button
-						onClick={() => router.push('/')}
+						onClick={() => router.push('/#blog')}
 						className='cursor-pointer'
 					>
 						<ArrowLeft className='w-4 h-4 mr-2' />
@@ -160,7 +160,7 @@ const BlogWrapper = ({ uuid }: TBlogWrapperProps) => {
 				<Button
 					variant='outline'
 					size='sm'
-					onClick={() => router.push('/')}
+					onClick={() => router.push('/#blog')}
 					className='bg-card/80 backdrop-blur-sm cursor-pointer'
 				>
 					<ArrowLeft className='w-4 h-4 mr-2' />
@@ -247,19 +247,20 @@ const BlogWrapper = ({ uuid }: TBlogWrapperProps) => {
 						className='text-foreground/90 leading-relaxed space-y-6'
 						dangerouslySetInnerHTML={{
 							__html: post.content
-								.replace(/\n/g, '<br />')
-								.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-								.replace(/\*(.*?)\*/g, '<em>$1</em>')
+								.replace(/\r\n/g, '\n')
 								.replace(
-									/```(.*?)```/gs,
+									/```([\s\S]*?)```/g,
 									'<pre class="bg-secondary p-4 rounded-lg overflow-x-auto"><code>$1</code></pre>',
 								)
 								.replace(/`(.*?)`/g, '<code class="bg-secondary px-2 py-1 rounded">$1</code>')
-								.replace(/^# (.*$)/gm, '<h1 class="text-3xl font-bold text-foreground mt-12 mb-6">$1</h1>')
-								.replace(/^## (.*$)/gm, '<h2 class="text-2xl font-bold text-foreground mt-10 mb-4">$1</h2>')
-								.replace(/^### (.*$)/gm, '<h3 class="text-xl font-bold text-foreground mt-8 mb-3">$1</h3>')
-								.replace(/^- (.*$)/gm, '<li class="ml-6">$1</li>')
-								.replace(/(<li.*?>.*?<\/li>\s*)+/gs, '<ul class="list-disc space-y-2 mb-6">$&</ul>'),
+								.replace(/^\s{0,3}###\s+(.*)$/gm, '<h3 class="text-xl font-bold text-foreground mt-8 mb-3">$1</h3>')
+								.replace(/^\s{0,3}##\s+(.*)$/gm, '<h2 class="text-2xl font-bold text-foreground mt-10 mb-4">$1</h2>')
+								.replace(/^\s{0,3}#\s+(.*)$/gm, '<h1 class="text-3xl font-bold text-foreground mt-12 mb-6">$1</h1>')
+								.replace(/^\s*-\s+(.*)$/gm, '<li class="ml-6">$1</li>')
+								.replace(/(<li.*?>.*?<\/li>\s*)+/gs, '<ul class="list-disc space-y-2 mb-6">$&</ul>')
+								.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+								.replace(/\*(.*?)\*/g, '<em>$1</em>')
+								.replace(/(?<!<\/li>)(?<!<\/h1>)(?<!<\/h2>)(?<!<\/h3>)\n/g, '<br />'),
 						}}
 					/>
 				</div>

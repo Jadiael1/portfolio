@@ -2,12 +2,15 @@ import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
+import { ThemeProvider } from '@/providers/ThemeProvider';
 
 const poppins = Poppins({
 	variable: '--font-poppins',
 	weight: ['400', '500', '600', '700'],
 	subsets: ['latin'],
 });
+
+const mySite = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://jadiael.dev';
 
 export const metadata: Metadata = {
 	title: 'Jadiael Juvino | Engenheiro de Software',
@@ -160,93 +163,94 @@ export const metadata: Metadata = {
 		{ rel: 'icon', type: 'image/png', sizes: '16x16', url: '/web-app/jadiael_16x16.png' },
 		{ rel: 'apple-touch-icon', sizes: '180x180', url: '/web-app/jadiael_180x180.png' },
 	],
+	metadataBase: new URL(mySite),
 	openGraph: {
 		title: 'Jadiael Juvino | Engenheiro de Software',
 		description:
 			'Portfólio de Jadiael Juvino, um Engenheiro de Software baseado em Pernambuco, Brasil. Explore meus projetos, habilidades e entre em contato para construirmos algo incrível juntos.',
-		url: 'https://jadiael.dev',
+		url: mySite,
 		siteName: 'Jadiael.Dev',
 		images: [
 			{
-				url: `https://jadiael.dev/og/site/og1200x630.png`,
+				url: `${mySite}/og/site/og1200x630.png`,
 				width: 1200,
 				height: 630,
 				alt: 'Jadiael.Dev',
 			},
 			{
-				url: `https://jadiael.dev/og/site/og1024x1024.png`,
+				url: `${mySite}/og/site/og1024x1024.png`,
 				width: 1024,
 				height: 1024,
 				alt: 'Jadiael.Dev',
 			},
 			{
-				url: `https://jadiael.dev/og/tiktok/og_tiktok_profile_photo200x200.png`,
+				url: `${mySite}/og/tiktok/og_tiktok_profile_photo200x200.png`,
 				width: 200,
 				height: 200,
 				alt: 'Jadiael.Dev',
 			},
 			{
-				url: `https://jadiael.dev/og/tiktok/og_tiktok_profile_photo1080x1920.png`,
+				url: `${mySite}/og/tiktok/og_tiktok_profile_photo1080x1920.png`,
 				width: 200,
 				height: 200,
 				alt: 'Jadiael.Dev',
 			},
 			{
-				url: `https://jadiael.dev/og/facebook/og_fb_profile_picture180x180.png`,
+				url: `${mySite}/og/facebook/og_fb_profile_picture180x180.png`,
 				width: 180,
 				height: 180,
 				alt: 'Jadiael.Dev',
 			},
 			{
-				url: `https://jadiael.dev/og/facebook/og_fb_image_post1200x630.png`,
+				url: `${mySite}/og/facebook/og_fb_image_post1200x630.png`,
 				width: 1200,
 				height: 630,
 				alt: 'Jadiael.Dev',
 			},
 			{
-				url: `https://jadiael.dev/og/facebook/og_fb_cover_photo820x312.png`,
+				url: `${mySite}/og/facebook/og_fb_cover_photo820x312.png`,
 				width: 820,
 				height: 312,
 				alt: 'Jadiael.Dev',
 			},
 			{
-				url: `https://jadiael.dev/og/instagram/insta_square_post1080x1080.png`,
+				url: `${mySite}/og/instagram/insta_square_post1080x1080.png`,
 				width: 1080,
 				height: 1080,
 				alt: 'Jadiael.Dev',
 			},
 			{
-				url: `https://jadiael.dev/og/instagram/insta_new_post1080x1350.png`,
+				url: `${mySite}/og/instagram/insta_new_post1080x1350.png`,
 				width: 1080,
 				height: 1350,
 				alt: 'Jadiael.Dev',
 			},
 			{
-				url: `https://jadiael.dev/og/instagram/insta_profile_picture320x320.png`,
+				url: `${mySite}/og/instagram/insta_profile_picture320x320.png`,
 				width: 320,
 				height: 320,
 				alt: 'Jadiael.Dev',
 			},
 			{
-				url: `https://jadiael.dev/og/instagram/Insta_stories1080x1920.png`,
+				url: `${mySite}/og/instagram/Insta_stories1080x1920.png`,
 				width: 320,
 				height: 320,
 				alt: 'Jadiael.Dev',
 			},
 			{
-				url: `https://jadiael.dev/og/youtube/youtube_thumb1280x720.png`,
+				url: `${mySite}/og/youtube/youtube_thumb1280x720.png`,
 				width: 1280,
 				height: 720,
 				alt: 'Jadiael.Dev',
 			},
 			{
-				url: `https://jadiael.dev/og/youtube/youtube_profile_picture800x800.png`,
+				url: `${mySite}/og/youtube/youtube_profile_picture800x800.png`,
 				width: 800,
 				height: 800,
 				alt: 'Jadiael.Dev',
 			},
 			{
-				url: `https://jadiael.dev/og/youtube/youtube_channel_art2560x1440.png`,
+				url: `${mySite}/og/youtube/youtube_channel_art2560x1440.png`,
 				width: 2560,
 				height: 1440,
 				alt: 'Jadiael.Dev',
@@ -261,9 +265,9 @@ export const metadata: Metadata = {
 		description:
 			'Portfólio de Jadiael Juvino, um Engenheiro de Software baseado em Pernambuco, Brasil. Explore meus projetos, habilidades e entre em contato para construirmos algo incrível juntos.',
 		images: [
-			{ url: '/og/twitter/og_twitter_profile_photo400x400.png', width: 400, height: 400 },
-			{ url: '/og/twitter/og_twitter_post_image1200x675.png', width: 1200, height: 675 },
-			{ url: '/og/twitter/og_twitter_header1500x500.png', width: 1500, height: 500 },
+			{ url: `${mySite}/og/twitter/og_twitter_profile_photo400x400.png`, width: 400, height: 400 },
+			{ url: `${mySite}/og/twitter/og_twitter_post_image1200x675.png`, width: 1200, height: 675 },
+			{ url: `${mySite}/og/twitter/og_twitter_header1500x500.png`, width: 1500, height: 500 },
 		],
 		creator: '@Jadiael1',
 	},
@@ -275,9 +279,9 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang='en'>
+		<html lang='pt-BR'>
 			<body className={`${poppins.variable} antialiased`}>
-				{children}
+				<ThemeProvider>{children}</ThemeProvider>
 				<Toaster />
 			</body>
 		</html>

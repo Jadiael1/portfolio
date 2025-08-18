@@ -1,10 +1,16 @@
 'use client';
-import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Menu, Monitor, Moon, Sun, X } from 'lucide-react';
+import { useTheme } from '@/hooks/useTheme';
 
+type TNewThemeProps = 'light' | 'dark' | 'system';
 const Navigation = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [scrolled, setScrolled] = useState(false);
+	const [isThemeMenuOpen, setIsThemeMenuOpen] = useState(false);
+	const themeMenuRef = useRef<HTMLDivElement>(null);
+
+	const { handleThemeChange, theme } = useTheme();
 
 	useEffect(() => {
 		const handleScroll = () => {
@@ -14,6 +20,16 @@ const Navigation = () => {
 		return () => window.removeEventListener('scroll', handleScroll);
 	}, []);
 
+	useEffect(() => {
+		const handleClickOutside = (event: MouseEvent) => {
+			if (themeMenuRef.current && !themeMenuRef.current.contains(event.target as Node)) {
+				setIsThemeMenuOpen(false);
+			}
+		};
+		document.addEventListener('mousedown', handleClickOutside);
+		return () => document.removeEventListener('mousedown', handleClickOutside);
+	}, []);
+
 	const navItems = [
 		{ href: '#sobre', label: 'Sobre' },
 		{ href: '#habilidades', label: 'Habilidades' },
@@ -21,6 +37,30 @@ const Navigation = () => {
 		{ href: '#blog', label: 'Blog' },
 		{ href: '#contato', label: 'Contato' },
 	];
+
+	const themeOptions = [
+		{ value: 'light', label: 'Claro', icon: Sun },
+		{ value: 'dark', label: 'Escuro', icon: Moon },
+		{ value: 'system', label: 'Sistema', icon: Monitor },
+	];
+
+	const ActiveThemeIcon = ({ size = 24 }: { size?: number }) => {
+		switch (theme) {
+			case 'light':
+				return <Sun size={size} />;
+			case 'dark':
+				return <Moon size={size} />;
+			case 'system':
+				return <Monitor size={size} />;
+			default:
+				return <Moon size={size} />;
+		}
+	};
+
+	const myHandleThemeChange = (newTheme: TNewThemeProps) => {
+		setIsThemeMenuOpen(false);
+		handleThemeChange(newTheme);
+	};
 
 	return (
 		<nav
@@ -37,19 +77,54 @@ const Navigation = () => {
 					</div>
 
 					{/* Desktop Navigation */}
-					<ul className='hidden md:flex gap-8 text-lg font-medium'>
-						{navItems.map(item => (
-							<li key={item.href}>
-								<a
-									href={item.href}
-									className='text-foreground hover:text-primary transition-colors relative group'
-								>
-									{item.label}
-									<span className='absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full'></span>
-								</a>
-							</li>
-						))}
-					</ul>
+					<div className='hidden md:flex items-center gap-8'>
+						<ul className='flex gap-8 text-lg font-medium'>
+							{navItems.map(item => (
+								<li key={item.href}>
+									<a
+										href={item.href}
+										className='text-foreground hover:text-primary transition-colors relative group'
+									>
+										{item.label}
+										<span className='absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full'></span>
+									</a>
+								</li>
+							))}
+						</ul>
+
+						{/* Seletor de Tema Desktop */}
+						<div
+							className='relative'
+							ref={themeMenuRef}
+						>
+							<button
+								onClick={() => setIsThemeMenuOpen(!isThemeMenuOpen)}
+								className='text-foreground hover:text-primary transition-colors cursor-pointer'
+								aria-label='Alterar tema'
+							>
+								<ActiveThemeIcon size={22} />
+							</button>
+							{isThemeMenuOpen && (
+								<div className='absolute top-full right-0 mt-3 w-40 bg-card border border-border rounded-lg shadow-lg overflow-hidden z-10'>
+									<ul>
+										{themeOptions.map(option => (
+											<li key={option.value}>
+												<button
+													onClick={() => myHandleThemeChange(option.value as TNewThemeProps)}
+													className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm font-medium transition-colors cursor-pointer ${
+														theme === option.value ? 'text-primary bg-accent' : 'text-foreground hover:bg-accent/50'
+													}`}
+												>
+													<option.icon className='w-4 h-4' />
+													{option.label}
+												</button>
+											</li>
+										))}
+									</ul>
+								</div>
+							)}
+						</div>
+					</div>
 
 					{/* Mobile Menu Button */}
 					<button
@@ -74,6 +149,27 @@ const Navigation = () => {
 									>
 										{item.label}
 									</a>
+								</li>
+							))}
+
+							{/* Divisor e Seletor de Tema Mobile */}
+							<li className='px-6 pt-4 pb-2'>
+								<div className='border-t border-border/50'></div>
+							</li>
+							<li className='px-6 text-sm text-muted-foreground mb-2'>Tema</li>
+							{themeOptions.map(option => (
+								<li key={`mobile-${option.value}`}>
+									<button
+										onClick={() => handleThemeChange(option.value as TNewThemeProps)}
+										className={`w-full flex items-center gap-3 px-6 py-3 text-lg font-medium transition-colors cursor-pointer ${
+											theme === option.value
+												? 'text-primary bg-accent/50'
+												: 'text-foreground hover:text-primary hover:bg-accent/50'
+										}`}
+									>
+										<option.icon className='w-5 h-5' />
+										{option.label}
+									</button>
 								</li>
 							))}
 						</ul>

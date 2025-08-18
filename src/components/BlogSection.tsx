@@ -17,7 +17,7 @@ const BlogSection = () => {
 		// Simulate API call with animation
 		setIsLoading(true);
 		setTimeout(() => {
-			setAllPosts(getRecentPosts(20)); // Get more posts for demo
+			setAllPosts(getRecentPosts(20));
 			setIsLoading(false);
 		}, 1);
 	}, []);

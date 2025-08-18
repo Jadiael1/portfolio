@@ -48,8 +48,8 @@ const AboutSection = () => {
 							</h3>
 							<p className='text-lg text-muted-foreground leading-relaxed'>
 								Sou um engenheiro de software apaixonado por criar soluções que fazem a diferença. Minha jornada na
-								tecnologia começou com curiosidade e evoluiu para uma carreira dedicada à excelência técnica e inovação
-								constante.
+								tecnologia começou em 2015 e evoluiu para uma carreira dedicada à excelência técnica, resultado e
+								inovação constante.
 							</p>
 						</div>
 
@@ -63,7 +63,7 @@ const AboutSection = () => {
 								<span className='text-primary font-semibold'>Node.js/NestJS</span>, desenvolvendo em{' '}
 								<span className='text-primary font-semibold'>PHP/Laravel</span>, ou administrando bancos de dados como{' '}
 								<span className='text-primary font-semibold'>MariaDB</span> e{' '}
-								<span className='text-primary font-semibold'>Oracle</span>.
+								<span className='text-primary font-semibold'>Oracle</span>, ou administrando Servidores.
 							</p>
 						</div>
 
@@ -72,9 +72,8 @@ const AboutSection = () => {
 							style={{ animationDelay: '0.4s' }}
 						>
 							<p className='text-lg text-muted-foreground leading-relaxed'>
-								Também possuo experiência sólida com <span className='text-primary font-semibold'>WordPress</span> para
-								criação e manutenção de sites dinâmicos. Meu foco está na eficiência e escalabilidade dos projetos,
-								sempre com preocupação constante com a experiência do usuário.
+								Meu foco está na eficiência, escalabilidade, manutenibilidade e performance dos
+								projetos, sempre com preocupação constante com a experiência do usuário e resultados.
 							</p>
 						</div>
 					</div>

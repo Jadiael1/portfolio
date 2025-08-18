@@ -19,7 +19,7 @@ const HeroSection = () => {
 	};
 
 	return (
-		<section className='relative min-h-screen flex items-center justify-center overflow-hidden bg-dots'>
+		<section className='relative flex items-center justify-center overflow-hidden bg-dots'>
 			{/* Animated Background Elements */}
 			<div className='absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-primary/10'></div>
 
@@ -34,7 +34,7 @@ const HeroSection = () => {
 				style={{ animationDelay: '2s' }}
 			></div>
 
-			<div className='relative z-10 max-w-5xl mx-auto px-6 text-center'>
+			<div className='relative z-10 max-w-5xl mx-auto px-6 text-center mb-8 mt-22'>
 				{/* Profile Image */}
 				<div className='relative mb-8 inline-block'>
 					<div className='relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-primary shadow-2xl animate-glow mx-auto'>
@@ -66,9 +66,7 @@ const HeroSection = () => {
 					className='text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed animate-fade-in-up'
 					style={{ animationDelay: '0.2s' }}
 				>
-					Criando soluções inovadoras com <span className='text-primary font-semibold'>C#</span>,{' '}
-					<span className='text-primary font-semibold'>JavaScript</span>,{' '}
-					<span className='text-primary font-semibold'>NestJS</span> e muito mais em Pernambuco, Brasil 🇧🇷
+					Criando soluções inovadoras.
 				</p>
 
 				{/* Description */}
@@ -76,8 +74,8 @@ const HeroSection = () => {
 					className='text-lg text-muted-foreground mb-12 max-w-2xl mx-auto animate-fade-in-up'
 					style={{ animationDelay: '0.4s' }}
 				>
-					Transformo ideias em código, focando em escalabilidade, performance e experiência do usuário. Sempre em busca
-					de novos desafios e tecnologias emergentes.
+					Transformo ideias em código, focando em escalabilidade, manutenibilidade, performance e experiência do
+					usuário. Sempre em busca de novos desafios, tecnologias emergentes e sempre focando em resultados.
 				</p>
 
 				{/* Action buttons */}

@@ -35,15 +35,6 @@ export const getLanguageColor = (language: string) => {
 	return colors[language] || '#6b7280';
 };
 
-export const formatDate = (dateString: string) => {
-	const date = new Date(dateString);
-	return date.toLocaleDateString('pt-BR', {
-		year: 'numeric',
-		month: 'short',
-		day: 'numeric',
-	});
-};
-
 export const fetchRepos = async (): Promise<IRepository[] | null> => {
 	try {
 		// const url = `https://cors-anywhere.herokuapp.com/https://api.github.com/users/Jadiael1/repos?sort=updated&per_page=6`;

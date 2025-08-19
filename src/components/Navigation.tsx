@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Menu, Monitor, Moon, Sun, X } from 'lucide-react';
 import { useTheme } from '@/hooks/useTheme';
+import Link from 'next/link';
 
 type TNewThemeProps = 'light' | 'dark' | 'system';
 const Navigation = () => {
@@ -59,6 +60,7 @@ const Navigation = () => {
 
 	const myHandleThemeChange = (newTheme: TNewThemeProps) => {
 		setIsThemeMenuOpen(false);
+		setIsOpen(false);
 		handleThemeChange(newTheme);
 	};
 
@@ -72,7 +74,9 @@ const Navigation = () => {
 				<div className='flex justify-between items-center'>
 					{/* Logo */}
 					<div className='text-2xl md:text-3xl font-bold tracking-tight'>
-						<span className='gradient-text cursor-pointer select-none'>JADIAEL</span>
+						<span className='gradient-text cursor-pointer select-none'>
+							<Link href={'/'}>JADIAEL</Link>
+						</span>
 						<span className='text-foreground'> JUVINO</span>
 					</div>
 
@@ -81,13 +85,13 @@ const Navigation = () => {
 						<ul className='flex gap-8 text-lg font-medium'>
 							{navItems.map(item => (
 								<li key={item.href}>
-									<a
+									<Link
 										href={item.href}
 										className='text-foreground hover:text-primary transition-colors relative group'
 									>
 										{item.label}
 										<span className='absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full'></span>
-									</a>
+									</Link>
 								</li>
 							))}
 						</ul>
@@ -142,13 +146,13 @@ const Navigation = () => {
 						<ul className='py-4 space-y-2'>
 							{navItems.map(item => (
 								<li key={item.href}>
-									<a
+									<Link
 										href={item.href}
 										className='block px-6 py-3 text-lg font-medium text-foreground hover:text-primary hover:bg-accent/50 transition-colors'
 										onClick={() => setIsOpen(false)}
 									>
 										{item.label}
-									</a>
+									</Link>
 								</li>
 							))}
 
@@ -160,7 +164,7 @@ const Navigation = () => {
 							{themeOptions.map(option => (
 								<li key={`mobile-${option.value}`}>
 									<button
-										onClick={() => handleThemeChange(option.value as TNewThemeProps)}
+										onClick={() => myHandleThemeChange(option.value as TNewThemeProps)}
 										className={`w-full flex items-center gap-3 px-6 py-3 text-lg font-medium transition-colors cursor-pointer ${
 											theme === option.value
 												? 'text-primary bg-accent/50'

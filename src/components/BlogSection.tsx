@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { getRecentPosts, BlogPost } from '@/data/blogPosts';
 import Link from 'next/link';
+import { formatDate } from '@/lib/utils';
 
 const BlogSection = () => {
 	const [visiblePosts, setVisiblePosts] = useState(6);
@@ -27,14 +28,6 @@ const BlogSection = () => {
 			setVisiblePosts(prev => prev + 6);
 			setIsLoading(false);
 		}, 1);
-	};
-
-	const formatDate = (dateString: string) => {
-		return new Date(dateString).toLocaleDateString('pt-BR', {
-			year: 'numeric',
-			month: 'long',
-			day: 'numeric',
-		});
 	};
 
 	const displayedPosts = allPosts.slice(0, visiblePosts);

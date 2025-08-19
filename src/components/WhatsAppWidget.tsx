@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Send, X, User } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import Link from 'next/link';
 
 const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
 	<svg
@@ -168,15 +169,15 @@ const WhatsAppWidget = () => {
 					{isOpen ? <X className='h-7 w-7' /> : <WhatsAppIcon className='h-7 w-7' />}
 				</button>
 			) : (
-				<a
-					href='https://api.whatsapp.com/send/?phone=5581995207789&text=Olá! Vim pelo seu portfólio e gostaria de conversar.'
+				<Link
+					href='https://api.whatsapp.com/send/?phone=5581995207789&text=Ol%C3%A1!%20Vim%20pelo%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar.'
 					target='_blank'
 					rel='noopener noreferrer'
 					className='fixed bottom-8 right-8 sm:right-8 z-50 w-12 h-12 rounded-full bg-whatsapp text-white shadow-lg hover:bg-whatsapp-glow hover:scale-105 transition-all duration-300 animate-pulse cursor-pointer flex items-center justify-center'
 					aria-label='Abrir chat do WhatsApp'
 				>
 					{isOpen ? <X className='h-7 w-7' /> : <WhatsAppIcon className='h-7 w-7' />}
-				</a>
+				</Link>
 			)}
 		</>
 	);

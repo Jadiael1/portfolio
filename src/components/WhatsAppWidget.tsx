@@ -19,6 +19,11 @@ const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
 const WhatsAppWidget = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [message, setMessage] = useState('');
+	const [jsEnabled, setJsEnabled] = useState(false);
+
+	useEffect(() => {
+		setJsEnabled(true);
+	}, []);
 
 	const chatWindowRef = useRef<HTMLDivElement>(null);
 	const fabRef = useRef<HTMLButtonElement>(null);
@@ -153,14 +158,26 @@ const WhatsAppWidget = () => {
 			</div>
 
 			{/* Floating Action Button (FAB) */}
-			<button
-				ref={fabRef}
-				onClick={toggleChat}
-				className='fixed bottom-8 right-8 sm:right-8 z-50 w-12 h-12 rounded-full bg-whatsapp text-white shadow-lg hover:bg-whatsapp-glow hover:scale-105 transition-all duration-300 animate-pulse cursor-pointer flex items-center justify-center'
-				aria-label='Abrir chat do WhatsApp'
-			>
-				{isOpen ? <X className='h-7 w-7' /> : <WhatsAppIcon className='h-7 w-7' />}
-			</button>
+			{jsEnabled ? (
+				<button
+					ref={fabRef}
+					onClick={toggleChat}
+					className='fixed bottom-8 right-8 sm:right-8 z-50 w-12 h-12 rounded-full bg-whatsapp text-white shadow-lg hover:bg-whatsapp-glow hover:scale-105 transition-all duration-300 animate-pulse cursor-pointer flex items-center justify-center'
+					aria-label='Abrir chat do WhatsApp'
+				>
+					{isOpen ? <X className='h-7 w-7' /> : <WhatsAppIcon className='h-7 w-7' />}
+				</button>
+			) : (
+				<a
+					href='https://api.whatsapp.com/send/?phone=5581995207789&text=Olá! Vim pelo seu portfólio e gostaria de conversar.'
+					target='_blank'
+					rel='noopener noreferrer'
+					className='fixed bottom-8 right-8 sm:right-8 z-50 w-12 h-12 rounded-full bg-whatsapp text-white shadow-lg hover:bg-whatsapp-glow hover:scale-105 transition-all duration-300 animate-pulse cursor-pointer flex items-center justify-center'
+					aria-label='Abrir chat do WhatsApp'
+				>
+					{isOpen ? <X className='h-7 w-7' /> : <WhatsAppIcon className='h-7 w-7' />}
+				</a>
+			)}
 		</>
 	);
 };

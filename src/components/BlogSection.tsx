@@ -6,11 +6,12 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { getRecentPosts, BlogPost } from '@/data/blogPosts';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 const BlogSection = () => {
 	const router = useRouter();
 	const [visiblePosts, setVisiblePosts] = useState(6);
-	const [allPosts, setAllPosts] = useState<BlogPost[]>([]);
+	const [allPosts, setAllPosts] = useState<BlogPost[]>(getRecentPosts(20));
 	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
@@ -36,10 +37,6 @@ const BlogSection = () => {
 			month: 'long',
 			day: 'numeric',
 		});
-	};
-
-	const handlePostClick = (postId: string) => {
-		router.push(`/blog/${postId}`);
 	};
 
 	const displayedPosts = allPosts.slice(0, visiblePosts);
@@ -69,90 +66,93 @@ const BlogSection = () => {
 				{/* Posts Grid */}
 				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12'>
 					{displayedPosts.map((post, index) => (
-						<Card
+						<Link
 							key={post.id}
-							className='group project-card cursor-pointer overflow-hidden'
-							onClick={() => handlePostClick(post.id)}
-							style={{
-								animationDelay: `${index * 100}ms`,
-								animation: 'fadeInUp 0.6s ease-out forwards',
-							}}
+							href={`/blog/${post.id}`}
 						>
-							{/* Post Image */}
-							<div className='relative h-48 overflow-hidden'>
-								<div className='w-full h-full bg-gradient-to-br from-primary/20 to-primary-glow/20 flex items-center justify-center'>
-									<div className='text-center'>
-										<div className='w-16 h-16 mx-auto mb-2 rounded-full bg-primary/20 flex items-center justify-center'>
-											<Calendar className='w-8 h-8 text-primary' />
+							<Card
+								className='group project-card cursor-pointer overflow-hidden'
+								style={{
+									animationDelay: `${index * 100}ms`,
+									animation: 'fadeInUp 0.6s ease-out forwards',
+								}}
+							>
+								{/* Post Image */}
+								<div className='relative h-48 overflow-hidden'>
+									<div className='w-full h-full bg-gradient-to-br from-primary/20 to-primary-glow/20 flex items-center justify-center'>
+										<div className='text-center'>
+											<div className='w-16 h-16 mx-auto mb-2 rounded-full bg-primary/20 flex items-center justify-center'>
+												<Calendar className='w-8 h-8 text-primary' />
+											</div>
+											<p className='text-sm text-muted-foreground'>{formatDate(post.date)}</p>
 										</div>
-										<p className='text-sm text-muted-foreground'>{formatDate(post.date)}</p>
 									</div>
-								</div>
 
-								{/* Featured Badge */}
-								{post.featured && (
-									<div className='absolute top-4 left-4'>
-										<Badge
-											variant='default'
-											className='bg-primary text-primary-foreground'
-										>
-											Em Destaque
-										</Badge>
-									</div>
-								)}
-
-								{/* Read Time */}
-								<div className='absolute top-4 right-4 bg-card/90 backdrop-blur-sm rounded-full px-3 py-1 text-xs flex items-center gap-1'>
-									<Clock className='w-3 h-3' />
-									{post.readTime} min
-								</div>
-							</div>
-
-							<CardHeader className='pb-4'>
-								<CardTitle className='text-xl font-bold group-hover:text-primary transition-colors duration-300 line-clamp-2'>
-									{post.title}
-								</CardTitle>
-								<CardDescription className='text-muted-foreground line-clamp-3'>{post.excerpt}</CardDescription>
-							</CardHeader>
-
-							<CardContent className='pt-0'>
-								{/* Tags */}
-								<div className='flex flex-wrap gap-2 mb-4'>
-									{post.tags.slice(0, 3).map(tag => (
-										<Badge
-											key={tag}
-											variant='secondary'
-											className='text-xs'
-										>
-											{tag}
-										</Badge>
-									))}
-									{post.tags.length > 3 && (
-										<Badge
-											variant='outline'
-											className='text-xs'
-										>
-											+{post.tags.length - 3}
-										</Badge>
+									{/* Featured Badge */}
+									{post.featured && (
+										<div className='absolute top-4 left-4'>
+											<Badge
+												variant='default'
+												className='bg-primary text-primary-foreground'
+											>
+												Em Destaque
+											</Badge>
+										</div>
 									)}
+
+									{/* Read Time */}
+									<div className='absolute top-4 right-4 bg-card/90 backdrop-blur-sm rounded-full px-3 py-1 text-xs flex items-center gap-1'>
+										<Clock className='w-3 h-3' />
+										{post.readTime} min
+									</div>
 								</div>
 
-								{/* Author and Read More */}
-								<div className='flex items-center justify-between'>
-									<div className='flex items-center gap-2'>
-										<div className='w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center text-white text-sm font-bold'>
-											J
+								<CardHeader className='pb-4'>
+									<CardTitle className='text-xl font-bold group-hover:text-primary transition-colors duration-300 line-clamp-2'>
+										{post.title}
+									</CardTitle>
+									<CardDescription className='text-muted-foreground line-clamp-3'>{post.excerpt}</CardDescription>
+								</CardHeader>
+
+								<CardContent className='pt-0'>
+									{/* Tags */}
+									<div className='flex flex-wrap gap-2 mb-4'>
+										{post.tags.slice(0, 3).map(tag => (
+											<Badge
+												key={tag}
+												variant='secondary'
+												className='text-xs'
+											>
+												{tag}
+											</Badge>
+										))}
+										{post.tags.length > 3 && (
+											<Badge
+												variant='outline'
+												className='text-xs'
+											>
+												+{post.tags.length - 3}
+											</Badge>
+										)}
+									</div>
+
+									{/* Author and Read More */}
+									<div className='flex items-center justify-between'>
+										<div className='flex items-center gap-2'>
+											<div className='w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center text-white text-sm font-bold'>
+												J
+											</div>
+											<span className='text-sm text-muted-foreground'>{post.author}</span>
 										</div>
-										<span className='text-sm text-muted-foreground'>{post.author}</span>
-									</div>
 
-									<div className='flex items-center gap-1 text-primary group-hover:gap-2 transition-all duration-300'>
-										<span className='text-sm font-medium'>Ler mais</span>
-										<ArrowRight className='w-4 h-4' />
+										<div className='flex items-center gap-1 text-primary group-hover:gap-2 transition-all duration-300'>
+											<span className='text-sm font-medium'>Ler mais</span>
+											<ArrowRight className='w-4 h-4' />
+										</div>
 									</div>
-								</div>
-							</CardContent>
-						</Card>
+								</CardContent>
+							</Card>
+						</Link>
 					))}
 				</div>
 

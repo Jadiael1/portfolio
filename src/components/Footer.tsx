@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import Github from '@/components/assets/svgs/Github';
 import Linkedin from '@/components/assets/svgs/Linkedin';
 import WhatsAppWidget from '@/components/WhatsAppWidget';
+import Link from 'next/link';
 
 const Footer = () => {
 	const [showBackToTop, setShowBackToTop] = useState(false);
@@ -81,7 +82,7 @@ const Footer = () => {
 								<h4 className='font-semibold mb-3 text-hero-text'>Conecte-se</h4>
 								<div className='flex gap-3'>
 									{socialLinks.map(social => (
-										<a
+										<Link
 											key={social.label}
 											href={social.href}
 											target='_blank'
@@ -90,7 +91,7 @@ const Footer = () => {
 											aria-label={social.label}
 										>
 											<social.icon className='h-5 w-5' />
-										</a>
+										</Link>
 									))}
 								</div>
 							</div>
@@ -102,12 +103,12 @@ const Footer = () => {
 							<ul className='space-y-3'>
 								{quickLinks.map(link => (
 									<li key={link.href}>
-										<a
+										<Link
 											href={link.href}
 											className='text-hero-text/80 hover:text-hero-text hover:translate-x-2 transition-all duration-300 inline-block'
 										>
 											{link.label}
-										</a>
+										</Link>
 									</li>
 								))}
 							</ul>
@@ -120,7 +121,7 @@ const Footer = () => {
 								<p className='text-hero-text/80'>Quer conversar sobre um projeto ou oportunidade?</p>
 
 								<div className='space-y-3'>
-									<a
+									<Link
 										href='https://api.whatsapp.com/send/?phone=%2B5581995207789&text=Estou%20entrando%20em%20contato%20a%20partir%20do%20seu%20portifolio'
 										target='_blank'
 										rel='noopener noreferrer'
@@ -128,15 +129,15 @@ const Footer = () => {
 									>
 										<Phone className='h-5 w-5 group-hover:scale-110 transition-transform' />
 										<span>WhatsApp</span>
-									</a>
+									</Link>
 
-									<a
+									<Link
 										href='mailto:jadiael1@gmail.com'
 										className='flex items-center gap-3 text-hero-text/80 hover:text-hero-text transition-colors group'
 									>
 										<Mail className='h-5 w-5 group-hover:scale-110 transition-transform' />
 										<span>jadiael1@gmail.com</span>
-									</a>
+									</Link>
 								</div>
 
 								<div className='pt-4'>
@@ -144,13 +145,13 @@ const Footer = () => {
 										asChild
 										className='bg-primary hover:bg-primary-glow text-secondary border-2 border-primary hover:border-primary-glow transition-all'
 									>
-										<a
+										<Link
 											href='#contato'
 											className='inline-flex items-center gap-2'
 										>
 											<Mail className='h-4 w-4' />
 											Enviar Mensagem
-										</a>
+										</Link>
 									</Button>
 								</div>
 							</div>

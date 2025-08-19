@@ -9,6 +9,7 @@ import { Mail, MessageCircle, MapPin, Send, Phone } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Github from '@/components/assets/svgs/Github';
 import Linkedin from '@/components/assets/svgs/Linkedin';
+import Link from 'next/link';
 
 const ContactSection = () => {
 	const [formData, setFormData] = useState({
@@ -85,7 +86,13 @@ const ContactSection = () => {
 			icon: Github,
 			name: 'GitHub',
 			url: 'https://github.com/Jadiael1',
-			color: 'hover:text-gray-900',
+			color: 'hover:text-green-900',
+		},
+		{
+			icon: Github,
+			name: 'GitHub DerexScript',
+			url: 'https://github.com/DerexScript',
+			color: 'hover:text-green-800',
 		},
 		{
 			icon: Linkedin,
@@ -138,14 +145,14 @@ const ContactSection = () => {
 												<div>
 													<h4 className='font-semibold text-foreground'>{info.title}</h4>
 													{info.link ? (
-														<a
+														<Link
 															href={info.link}
 															target='_blank'
 															rel='noopener noreferrer'
 															className='text-muted-foreground hover:text-primary transition-colors'
 														>
 															{info.value}
-														</a>
+														</Link>
 													) : (
 														<p className='text-muted-foreground'>{info.value}</p>
 													)}
@@ -162,7 +169,7 @@ const ContactSection = () => {
 							<h3 className='text-2xl font-bold text-foreground mb-6'>Redes Sociais</h3>
 							<div className='flex gap-4'>
 								{socialLinks.map(social => (
-									<a
+									<Link
 										key={social.name}
 										href={social.url}
 										target='_blank'
@@ -171,7 +178,7 @@ const ContactSection = () => {
 										aria-label={social.name}
 									>
 										<social.icon className={`h-6 w-6`} />
-									</a>
+									</Link>
 								))}
 							</div>
 						</div>

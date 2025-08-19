@@ -8,6 +8,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { getPostById, getRecentPosts, type BlogPost as BlogPostType } from '@/data/blogPosts';
 import { useToast } from '@/hooks/use-toast';
+import Link from 'next/link';
 
 type TBlogWrapperProps = {
 	uuid: string;
@@ -17,14 +18,15 @@ const BlogWrapper = ({ uuid }: TBlogWrapperProps) => {
 	const id = uuid;
 	const router = useRouter();
 	const { toast } = useToast();
-	const [post, setPost] = useState<BlogPostType | null>(null);
+	const [post, setPost] = useState<BlogPostType | null>(getPostById(id)!);
 	const [relatedPosts, setRelatedPosts] = useState<BlogPostType[]>([]);
-	const [isLoading, setIsLoading] = useState(true);
+	const [isLoading, setIsLoading] = useState(false);
 	const [readingProgress, setReadingProgress] = useState(0);
 
 	useEffect(() => {
 		if (id) {
 			// Simulate API call
+			setIsLoading(true);
 			setTimeout(() => {
 				const foundPost = getPostById(id);
 				setPost(foundPost || null);
@@ -157,15 +159,17 @@ const BlogWrapper = ({ uuid }: TBlogWrapperProps) => {
 
 			{/* Back Button */}
 			<div className='fixed top-6 left-6 z-40'>
-				<Button
-					variant='outline'
-					size='sm'
-					onClick={() => router.push('/#blog')}
-					className='bg-card/80 backdrop-blur-sm cursor-pointer'
-				>
-					<ArrowLeft className='w-4 h-4 mr-2' />
-					Voltar
-				</Button>
+				<Link href='/#blog'>
+					<Button
+						className='bg-card/80 backdrop-blur-sm cursor-pointer'
+						variant='outline'
+						size='sm'
+						onClick={() => router.push('/#blog')}
+					>
+						<ArrowLeft className='w-4 h-4 mr-2' />
+						Voltar
+					</Button>
+				</Link>
 			</div>
 
 			{/* Share Button */}
@@ -282,22 +286,25 @@ const BlogWrapper = ({ uuid }: TBlogWrapperProps) => {
 									inovadoras.
 								</p>
 								<div className='flex gap-4'>
-									<Button
-										variant='outline'
-										size='sm'
-										onClick={() => router.push('/#contato')}
-										className='cursor-pointer'
-									>
-										Entre em contato
-									</Button>
-									<Button
-										variant='ghost'
-										size='sm'
-										onClick={() => router.push('/#projetos')}
-										className='cursor-pointer'
-									>
-										Ver projetos
-									</Button>
+									<Link href={'/#contato'}>
+										<Button
+											className='cursor-pointer'
+											variant='outline'
+											size='sm'
+										>
+											Entre em contato
+										</Button>
+									</Link>
+
+									<Link href='/#projetos'>
+										<Button
+											variant='ghost'
+											size='sm'
+											className='cursor-pointer'
+										>
+											Ver projetos
+										</Button>
+									</Link>
 								</div>
 							</div>
 						</div>

@@ -1,6 +1,7 @@
 import MyProjectsSectionWrapper from '@/components/ProjectsSectionWrapper';
 import { Button } from '@/components/ui/button';
 import Github from '@/components/assets/svgs/Github';
+import Link from 'next/link';
 // import dynamic from 'next/dynamic';
 // const MyProjectsSectionWrapper = dynamic(() => import('@/components/ProjectsSectionWrapper'), { ssr: true });
 
@@ -102,7 +103,7 @@ const ProjectsSection = async () => {
 							asChild
 							className='btn-hero-primary'
 						>
-							<a
+							<Link
 								href='https://github.com/Jadiael1?tab=repositories'
 								target='_blank'
 								rel='noopener noreferrer'
@@ -110,7 +111,7 @@ const ProjectsSection = async () => {
 							>
 								<Github className='h-5 w-5' />
 								Ver Todos os Projetos
-							</a>
+							</Link>
 						</Button>
 					</div>
 				</div>

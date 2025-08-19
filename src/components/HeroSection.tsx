@@ -1,23 +1,9 @@
-'use client';
 import { ArrowDown, Download, Code } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import jadiaelProfile from '@/components/assets/jadiael-profile.png';
 import Image from 'next/image';
 
 const HeroSection = () => {
-	const handleDownloadCV = () => {
-		const link = document.createElement('a');
-		link.href = '/assets/pdf/jadiael_cv.pdf';
-		link.download = 'jadiael_cv.pdf';
-		document.body.appendChild(link);
-		link.click();
-		document.body.removeChild(link);
-	};
-
-	const handleViewProjects = () => {
-		document.getElementById('projetos')?.scrollIntoView({ behavior: 'smooth' });
-	};
-
 	return (
 		<section className='relative flex items-center justify-center overflow-hidden bg-dots'>
 			{/* Animated Background Elements */}
@@ -83,22 +69,31 @@ const HeroSection = () => {
 					className='flex flex-col sm:flex-row gap-4 justify-center mb-16 animate-fade-in-up'
 					style={{ animationDelay: '0.6s' }}
 				>
-					<Button
-						onClick={handleDownloadCV}
-						className='btn-hero-secondary group cursor-pointer'
-						size='lg'
+					<a
+						href='/assets/pdf/jadiael_cv.pdf'
+						download
+						className='flex items-center'
 					>
-						<Download className='mr-2 h-5 w-5 group-hover:animate-bounce' />
-						Download CV
-					</Button>
-					<Button
-						onClick={handleViewProjects}
-						className='btn-hero-primary group cursor-pointer'
-						size='lg'
+						<Button
+							className='btn-hero-secondary group cursor-pointer'
+							size='lg'
+						>
+							<Download className='mr-2 h-5 w-5 group-hover:animate-bounce' />
+							Download CV
+						</Button>
+					</a>
+					<a
+						href='#projetos'
+						className='flex items-center'
 					>
-						<Code className='mr-2 h-5 w-5 group-hover:rotate-12 transition-transform' />
-						Ver Projetos
-					</Button>
+						<Button
+							className='btn-hero-primary group cursor-pointer'
+							size='lg'
+						>
+							<Code className='mr-2 h-5 w-5 group-hover:rotate-12 transition-transform' />
+							Ver Projetos
+						</Button>
+					</a>
 				</div>
 
 				{/* Scroll indicator */}

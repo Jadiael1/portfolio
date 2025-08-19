@@ -9,6 +9,7 @@ import Link from 'next/link';
 
 const Footer = () => {
 	const [showBackToTop, setShowBackToTop] = useState(false);
+	const [currentYear, setCurrentYear] = useState(2024);
 
 	useEffect(() => {
 		const handleScroll = () => {
@@ -19,11 +20,13 @@ const Footer = () => {
 		return () => window.removeEventListener('scroll', handleScroll);
 	}, []);
 
+	useEffect(() => {
+		setCurrentYear(new Date().getFullYear());
+	}, []);
+
 	const scrollToTop = () => {
 		window.scrollTo({ top: 0, behavior: 'smooth' });
 	};
-
-	const currentYear = new Date().getFullYear();
 
 	const quickLinks = [
 		{ href: '#sobre', label: 'Sobre' },
@@ -162,7 +165,8 @@ const Footer = () => {
 					<div className='mt-16 pt-8 border-t border-hero-text/20'>
 						<div className='flex flex-col md:flex-row justify-between items-center gap-4'>
 							<p className='text-hero-text/80 text-center md:text-left'>
-								© {currentYear} <span className='font-semibold text-hero-text'>Jadiael Juvino</span>. Feito com{' '}
+								© <span suppressHydrationWarning>{currentYear}</span>{' '}
+								<span className='font-semibold text-hero-text'>Jadiael Juvino</span>. Feito com{' '}
 								<Heart className='inline h-4 w-4 text-red-400 mx-1' /> e muita{' '}
 								<span className='text-primary font-semibold'>dedicação</span>.
 							</p>

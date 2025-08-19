@@ -5,11 +5,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { getRecentPosts, BlogPost } from '@/data/blogPosts';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 const BlogSection = () => {
-	const router = useRouter();
 	const [visiblePosts, setVisiblePosts] = useState(6);
 	const [allPosts, setAllPosts] = useState<BlogPost[]>(getRecentPosts(20));
 	const [isLoading, setIsLoading] = useState(false);

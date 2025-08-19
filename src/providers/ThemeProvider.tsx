@@ -6,7 +6,6 @@ type TNewThemeProps = 'light' | 'dark' | 'system';
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
 	const [theme, setTheme] = useState<TNewThemeProps>('system');
-	const [isPending, setIsPending] = useState<boolean>(true);
 
 	useEffect(() => {
 		const themeStorage = localStorage.getItem('theme-intent');
@@ -34,14 +33,12 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
 					html.setAttribute('data-theme', 'light');
 					html.setAttribute('data-theme-intent', newThemeStorage);
 				}
-				setIsPending(false);
 				return;
 			}
 			html.setAttribute('data-theme', newThemeStorage!);
 			html.setAttribute('data-theme-intent', newThemeStorage!);
 			setTheme(newThemeStorage as TNewThemeProps);
 		}
-		setIsPending(false);
 	}, []);
 
 	const handleThemeChange = (newTheme: TNewThemeProps) => {
@@ -64,7 +61,5 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
 		localStorage.setItem('theme-intent', newTheme);
 	};
 
-	return (
-		<ThemeContext.Provider value={{ handleThemeChange, theme }}>{!isPending ? children : null}</ThemeContext.Provider>
-	);
+	return <ThemeContext.Provider value={{ handleThemeChange, theme }}>{children}</ThemeContext.Provider>;
 };

@@ -3,8 +3,9 @@ import { useEffect, useState, useRef } from 'react';
 import { ExternalLink, Star, GitFork } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Github from '@/components/assets/svgs/Github';
-import { IRepository, getLanguageColor, formatDate, fetchRepos } from '@/components/ProjectsSection';
+import { IRepository, getLanguageColor, fetchRepos } from '@/components/ProjectsSection';
 import Link from 'next/link';
+import { formatDate } from '@/lib/utils';
 
 const ProjectsSectionWrapper = () => {
 	const [repositories, setRepositories] = useState<IRepository[] | null>(null);

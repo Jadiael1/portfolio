@@ -2,6 +2,7 @@ import { ArrowDown, Download, Code } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import jadiaelProfile from '@/components/assets/jadiael-profile.png';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const HeroSection = () => {
 	return (
@@ -69,31 +70,33 @@ const HeroSection = () => {
 					className='flex flex-col sm:flex-row gap-4 justify-center mb-16 animate-fade-in-up'
 					style={{ animationDelay: '0.6s' }}
 				>
-					<a
-						href='/assets/pdf/jadiael_cv.pdf'
-						download
-						className='flex items-center'
+					<Button
+						className='btn-hero-secondary group cursor-pointer'
+						size='lg'
+						asChild
 					>
-						<Button
-							className='btn-hero-secondary group cursor-pointer'
-							size='lg'
+						<Link
+							href='/assets/pdf/jadiael_cv.pdf'
+							download
+							className='flex items-center'
 						>
 							<Download className='mr-2 h-5 w-5 group-hover:animate-bounce' />
 							Download CV
-						</Button>
-					</a>
-					<a
-						href='#projetos'
-						className='flex items-center'
+						</Link>
+					</Button>
+					<Button
+						className='btn-hero-primary group cursor-pointer'
+						size='lg'
+						asChild
 					>
-						<Button
-							className='btn-hero-primary group cursor-pointer'
-							size='lg'
+						<Link
+							href='#projetos'
+							className='flex items-center'
 						>
 							<Code className='mr-2 h-5 w-5 group-hover:rotate-12 transition-transform' />
 							Ver Projetos
-						</Button>
-					</a>
+						</Link>
+					</Button>
 				</div>
 
 				{/* Scroll indicator */}

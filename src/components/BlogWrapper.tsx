@@ -9,6 +9,7 @@ import { Separator } from '@/components/ui/separator';
 import { getPostById, getRecentPosts, type BlogPost as BlogPostType } from '@/data/blogPosts';
 import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
+import { formatDate } from '@/lib/utils';
 
 type TBlogWrapperProps = {
 	uuid: string;
@@ -58,14 +59,6 @@ const BlogWrapper = ({ uuid }: TBlogWrapperProps) => {
 		window.addEventListener('scroll', handleScroll);
 		return () => window.removeEventListener('scroll', handleScroll);
 	}, [post]);
-
-	const formatDate = (dateString: string) => {
-		return new Date(dateString).toLocaleDateString('pt-BR', {
-			year: 'numeric',
-			month: 'long',
-			day: 'numeric',
-		});
-	};
 
 	const handleShare = async () => {
 		const url = window.location.href;

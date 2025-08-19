@@ -1,7 +1,8 @@
 import { ExternalLink, Star, GitFork } from 'lucide-react';
 import Github from '@/components/assets/svgs/Github';
-import { getLanguageColor, formatDate, fetchRepos } from '@/components/ProjectsSection';
+import { getLanguageColor, fetchRepos } from '@/components/ProjectsSection';
 import Link from 'next/link';
+import { formatDate } from '@/lib/utils';
 
 export default async function Projects() {
 	const repos = await fetchRepos();

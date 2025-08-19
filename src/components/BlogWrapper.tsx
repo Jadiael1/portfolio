@@ -272,39 +272,56 @@ const BlogWrapper = ({ uuid }: TBlogWrapperProps) => {
 				<Separator className='my-12' />
 
 				{/* Author Info */}
-				<Card className='mb-12'>
-					<CardContent className='p-8'>
-						<div className='flex items-start gap-6'>
-							<div className='w-20 h-20 rounded-full bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center text-white text-2xl font-bold flex-shrink-0'>
+				<Card className='mb-12 overflow-hidden'>
+					<CardContent className='p-6 sm:p-8'>
+						<div className='flex items-start gap-4 sm:gap-6 max-w-full'>
+							{/* Avatar menor no mobile + sem encolher */}
+							<div
+								className='size-16 sm:size-20 rounded-full bg-gradient-to-br from-primary to-primary-glow
+                      flex items-center justify-center text-white text-2xl font-bold flex-shrink-0'
+							>
 								J
 							</div>
-							<div>
-								<h3 className='text-xl font-bold text-foreground mb-2'>Jadiael Juvino</h3>
-								<p className='text-muted-foreground mb-4'>
+
+							{/* Conteúdo pode encolher / quebrar corretamente */}
+							<div className='flex-1 min-w-0'>
+								<h3 className='text-lg sm:text-xl font-bold text-foreground mb-2'>Jadiael Juvino</h3>
+
+								<p className='text-muted-foreground mb-4 text-pretty'>
 									Engenheiro de Software especializado em desenvolvimento backend e frontend, com experiência em C#,
 									JavaScript, NestJS, PHP e bancos de dados. Apaixonado por compartilhar conhecimento e criar soluções
 									inovadoras.
 								</p>
-								<div className='flex gap-4'>
-									<Link href={'/#contato'}>
-										<Button
-											className='cursor-pointer'
-											variant='outline'
-											size='sm'
+
+								{/* Botões: empilha no mobile, lado a lado no sm+; permite wrap */}
+								<div className='flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4'>
+									<Button
+										asChild
+										variant='outline'
+										size='sm'
+										className='cursor-pointer w-full sm:w-auto'
+									>
+										<Link
+											href='/#contato'
+											aria-label='Entre em contato'
 										>
 											Entre em contato
-										</Button>
-									</Link>
+										</Link>
+									</Button>
 
-									<Link href='/#projetos'>
-										<Button
-											variant='ghost'
-											size='sm'
-											className='cursor-pointer'
+									<Button
+										asChild
+										variant='ghost'
+										size='sm'
+										className='cursor-pointer w-full sm:w-auto'
+									>
+										<Link
+											href='/#blog'
+											aria-label='Ver outras postagens'
 										>
-											Ver projetos
-										</Button>
-									</Link>
+											Ver mais postagens
+										</Link>
+									</Button>
 								</div>
 							</div>
 						</div>

@@ -1,6 +1,7 @@
 import { ExternalLink, Star, GitFork } from 'lucide-react';
 import Github from '@/components/assets/svgs/Github';
 import { getLanguageColor, formatDate, fetchRepos } from '@/components/ProjectsSection';
+import Link from 'next/link';
 
 export default async function Projects() {
 	const repos = await fetchRepos();
@@ -22,7 +23,7 @@ export default async function Projects() {
 										{repo.name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
 									</h3>
 									<div className='flex gap-2'>
-										<a
+										<Link
 											href={repo.html_url}
 											target='_blank'
 											rel='noopener noreferrer'
@@ -30,9 +31,9 @@ export default async function Projects() {
 											aria-label='Ver no GitHub'
 										>
 											<Github className='h-5 w-5' />
-										</a>
+										</Link>
 										{repo.homepage && (
-											<a
+											<Link
 												href={repo.homepage}
 												target='_blank'
 												rel='noopener noreferrer'
@@ -40,7 +41,7 @@ export default async function Projects() {
 												aria-label='Ver site'
 											>
 												<ExternalLink className='h-5 w-5' />
-											</a>
+											</Link>
 										)}
 									</div>
 								</div>

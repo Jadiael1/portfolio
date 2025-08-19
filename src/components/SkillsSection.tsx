@@ -60,6 +60,11 @@ const skills: Skill[] = [
 const SkillsSection = () => {
 	const sectionRef = useRef<HTMLElement>(null);
 	const [visibleSkills, setVisibleSkills] = useState<boolean[]>(new Array(skills.length).fill(false));
+	const [jsEnabled, setJsEnabled] = useState(false);
+
+	useEffect(() => {
+		setJsEnabled(true);
+	}, []);
 
 	useEffect(() => {
 		const observer = new IntersectionObserver(
@@ -109,7 +114,7 @@ const SkillsSection = () => {
 							key={skill.title}
 							data-index={index}
 							className={`skill-card skill-card-item group cursor-pointer ${
-								visibleSkills[index] ? 'animate-fade-in-up' : 'opacity-0'
+								visibleSkills[index] || jsEnabled === false ? 'animate-fade-in-up' : 'opacity-0'
 							}`}
 							style={{ animationDelay: `${index * 0.1}s` }}
 						>

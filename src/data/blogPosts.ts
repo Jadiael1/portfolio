@@ -76,7 +76,7 @@ Isso facilita a evolução futura e reduz a curva de aprendizado para outras equ
 
     `,
 		author: 'Jadiael Juvino',
-		date: '2024-12-15',
+		date: '2024-12-15T00:00:00-03:00',
 		readTime: 8,
 		tags: [
 			'Oracle',

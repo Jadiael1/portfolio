@@ -1,50 +1,40 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, Calendar, Clock, Tag, Share2, BookOpen, User } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, Tag, Share2, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { getPostById, getRecentPosts, type BlogPost as BlogPostType } from '@/data/blogPosts';
+import { getRecentPosts, type BlogPost as BlogPostType } from '@/data/blogPosts';
 import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
 import { formatDate } from '@/lib/utils';
 
 type TBlogWrapperProps = {
-	uuid: string;
+	blogPost: BlogPostType;
 };
 
-const BlogWrapper = ({ uuid }: TBlogWrapperProps) => {
-	const id = uuid;
+const BlogWrapper = ({ blogPost }: TBlogWrapperProps) => {
 	const router = useRouter();
 	const { toast } = useToast();
-	const [post, setPost] = useState<BlogPostType | null>(getPostById(id)!);
+	const [post, setPost] = useState<BlogPostType>(blogPost);
 	const [relatedPosts, setRelatedPosts] = useState<BlogPostType[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [readingProgress, setReadingProgress] = useState(0);
 
 	useEffect(() => {
-		if (id) {
-			// Simulate API call
-			setIsLoading(true);
-			setTimeout(() => {
-				const foundPost = getPostById(id);
-				setPost(foundPost || null);
-
-				if (foundPost) {
-					// Get related posts (same tags)
-					const related = getRecentPosts(10)
-						.filter(p => p.id !== foundPost.id)
-						.filter(p => p.tags.some(tag => foundPost.tags.includes(tag)))
-						.slice(0, 3);
-					setRelatedPosts(related);
-				}
-
-				setIsLoading(false);
-			}, 1);
-		}
-	}, [id]);
+		setIsLoading(true);
+		setTimeout(() => {
+			setPost(post);
+			const related = getRecentPosts(10)
+				.filter(p => p.id !== post.id)
+				.filter(p => p.tags.some(tag => post.tags.includes(tag)))
+				.slice(0, 3);
+			setRelatedPosts(related);
+			setIsLoading(false);
+		}, 100);
+	}, [post]);
 
 	useEffect(() => {
 		const handleScroll = () => {
@@ -55,7 +45,6 @@ const BlogWrapper = ({ uuid }: TBlogWrapperProps) => {
 				setReadingProgress(Math.min(100, Math.max(0, progress)));
 			}
 		};
-
 		window.addEventListener('scroll', handleScroll);
 		return () => window.removeEventListener('scroll', handleScroll);
 	}, [post]);
@@ -114,27 +103,6 @@ const BlogWrapper = ({ uuid }: TBlogWrapperProps) => {
 							))}
 						</div>
 					</div>
-				</div>
-			</div>
-		);
-	}
-
-	if (!post) {
-		return (
-			<div className='min-h-screen bg-background flex items-center justify-center'>
-				<div className='text-center'>
-					<div className='w-24 h-24 mx-auto mb-6 rounded-full bg-secondary flex items-center justify-center'>
-						<BookOpen className='w-12 h-12 text-muted-foreground' />
-					</div>
-					<h1 className='text-2xl font-bold text-foreground mb-4'>Artigo não encontrado</h1>
-					<p className='text-muted-foreground mb-8'>O artigo que você está procurando não existe ou foi removido.</p>
-					<Button
-						onClick={() => router.push('/#blog')}
-						className='cursor-pointer'
-					>
-						<ArrowLeft className='w-4 h-4 mr-2' />
-						Voltar ao início
-					</Button>
 				</div>
 			</div>
 		);

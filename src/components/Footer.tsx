@@ -165,7 +165,7 @@ const Footer = () => {
 					<div className='mt-16 pt-8 border-t border-hero-text/20'>
 						<div className='flex flex-col md:flex-row justify-between items-center gap-4'>
 							<p className='text-hero-text/80 text-center md:text-left'>
-								© <span suppressHydrationWarning>{currentYear}</span>{' '}
+								© <span>{currentYear}</span>{' '}
 								<span className='font-semibold text-hero-text'>Jadiael Juvino</span>. Feito com{' '}
 								<Heart className='inline h-4 w-4 text-red-400 mx-1' /> e muita{' '}
 								<span className='text-primary font-semibold'>dedicação</span>.

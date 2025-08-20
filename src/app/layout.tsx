@@ -154,7 +154,6 @@ export const metadata: Metadata = {
 	alternates: {
 		canonical: '/',
 	},
-	robots: 'index, follow',
 	icons: [
 		{ rel: 'icon', type: 'image/png', sizes: '512x512', url: '/web-app/jadiael_512x512.png' },
 		{ rel: 'icon', type: 'image/png', sizes: '256x256', url: '/web-app/jadiael_256x256.png' },
@@ -165,6 +164,17 @@ export const metadata: Metadata = {
 		{ rel: 'apple-touch-icon', sizes: '180x180', url: '/web-app/jadiael_180x180.png' },
 	],
 	metadataBase: new URL(mySite),
+	verification: { google: 'ETXDIY0Kh99d69teGMB7qbN0KshRBg9ilsU-8BWHIWc' },
+	robots: {
+		index: true,
+		follow: true,
+		nocache: false,
+		googleBot: {
+			index: true,
+			follow: true,
+			nocache: false,
+		},
+	},
 	openGraph: {
 		title: 'Jadiael Juvino | Engenheiro de Software',
 		description:
@@ -272,6 +282,7 @@ export const metadata: Metadata = {
 		],
 		creator: '@Jadiael1',
 	},
+	category: 'portfólio',
 };
 
 export default function RootLayout({

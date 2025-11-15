@@ -423,7 +423,7 @@ A mesma disciplina que aplico em integrações reais e soluções corporativas �
 
 		`,
 		author: 'Jadiael Juvino',
-		date: '2025-01-05T00:00:00-03:00',
+		date: '2025-11-15T00:00:00-03:00',
 		readTime: 8,
 		tags: [
 			'GTA San Andreas',

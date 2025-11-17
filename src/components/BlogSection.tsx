@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useMemo, useState } from 'react';
 import { Calendar, Clock, ArrowRight, Tag, ChevronDown } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -8,19 +8,20 @@ import { getRecentPosts, BlogPost } from '@/data/blogPosts';
 import Link from 'next/link';
 import { formatDate } from '@/lib/utils';
 
+const sortPostsByFeatured = (posts: BlogPost[]) =>
+	[...posts].sort((a, b) => {
+		if (a.featured === b.featured) {
+			return new Date(b.date).getTime() - new Date(a.date).getTime();
+		}
+		return a.featured ? -1 : 1;
+	});
+
 const BlogSection = () => {
 	const [visiblePosts, setVisiblePosts] = useState(6);
-	const [allPosts, setAllPosts] = useState<BlogPost[]>(getRecentPosts(20));
-	const [isLoading, setIsLoading] = useState(false);
 
-	useEffect(() => {
-		// Simulate API call with animation
-		setIsLoading(true);
-		setTimeout(() => {
-			setAllPosts(getRecentPosts(20));
-			setIsLoading(false);
-		}, 1);
-	}, []);
+	const allPosts: BlogPost[] = useMemo(() => sortPostsByFeatured(getRecentPosts(20)), []);
+
+	const [isLoading, setIsLoading] = useState(false);
 
 	const handleLoadMore = () => {
 		setIsLoading(true);

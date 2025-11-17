@@ -90,7 +90,7 @@ Isso facilita a evolução futura e reduz a curva de aprendizado para outras equ
 			'Sincronização de Dados',
 			'LearnDash',
 		],
-		image: '/api/placeholder/800/400',
+		image: '',
 		featured: true,
 	},
 	{
@@ -435,7 +435,7 @@ A mesma disciplina que aplico em integrações reais e soluções corporativas �
 			'Rockstar Games Launcher',
 			'Portfólio',
 		],
-		image: '/api/placeholder/800/400',
+		image: '',
 		featured: false,
 	},
 ];

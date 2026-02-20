@@ -464,7 +464,9 @@ A mesma disciplina que aplico em integrações reais e soluções corporativas �
 
 			Se você quer baixar o MOD e ver detalhes de uso, ele já está publicado aqui:
 			<a target="_blank" rel="noopener noreferrer" class="text-blue-500" href='https://www.nexusmods.com/stardewvalley/mods/38441'>https://www.nexusmods.com/stardewvalley/mods/38441</a>
-
+			
+			Se você quer ver o codigo fonte do MOD, ele já está publicado aqui:
+			<a target="_blank" rel="noopener noreferrer" class="text-blue-500" href='https://github.com/Jadiael1/PerPlayerFarm'>https://github.com/Jadiael1/PerPlayerFarm</a>
 			---
 
 			## 1) Começo: documentação e as duas formas de criar mods

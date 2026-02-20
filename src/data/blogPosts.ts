@@ -17,6 +17,23 @@ export const blogPosts: BlogPost[] = [
 		title: 'Sincronização Bidirecional entre Oracle e WordPress com API Intermediadora em NestJS',
 		excerpt:
 			'Implementação de sincronização de dados entre Oracle e WordPress com API intermediadora em NestJS, garantindo filas, triggers, segurança e zero falhas em produção.',
+		author: 'Jadiael Juvino',
+		date: '2024-12-15T00:00:00-03:00',
+		readTime: 8,
+		tags: [
+			'Oracle',
+			'WordPress',
+			'NestJS',
+			'BullMQ',
+			'BullBoard',
+			'API',
+			'Redis',
+			'Basic Auth',
+			'Sincronização de Dados',
+			'LearnDash',
+		],
+		image: '',
+		featured: true,
 		content: `
 # Sincronização Bidirecional entre Oracle e WordPress com API Intermediadora
 Um desafio recente foi manter uma **sincronização de dados em dois sentidos** entre um banco de dados **Oracle (SENIOR)** e uma plataforma **LMS baseada em WordPress**.
@@ -75,28 +92,26 @@ Sou bastante organizado, costumo **documentar bem meus projetos**, manter **padr
 Isso facilita a evolução futura e reduz a curva de aprendizado para outras equipes que precisem atuar no mesmo código.
 
     `,
-		author: 'Jadiael Juvino',
-		date: '2024-12-15T00:00:00-03:00',
-		readTime: 8,
-		tags: [
-			'Oracle',
-			'WordPress',
-			'NestJS',
-			'BullMQ',
-			'BullBoard',
-			'API',
-			'Redis',
-			'Basic Auth',
-			'Sincronização de Dados',
-			'LearnDash',
-		],
-		image: '',
-		featured: true,
 	},
 	{
 		id: '2',
 		title: 'Manipulação de memória.',
 		excerpt: 'Praticando ponteiros e offsets revisitando GTA San Andreas v1.0.1.32 (Rockstar Games Launcher).',
+		author: 'Jadiael Juvino',
+		date: '2025-11-15T00:00:00-03:00',
+		readTime: 8,
+		tags: [
+			'GTA San Andreas',
+			'Cheat Engine',
+			'Automação',
+			'Memória',
+			'Games',
+			'Teleporte',
+			'Rockstar Games Launcher',
+			'Portfólio',
+		],
+		image: '',
+		featured: false,
 		content: `
 # Revisitação ao GTA San Andreas (RGL 1.0.1.32) e exploração de memória com Cheat Engine
 
@@ -422,21 +437,276 @@ A mesma disciplina que aplico em integrações reais e soluções corporativas �
 
 
 		`,
+	},
+	{
+		id: '3',
+		title: 'Criando o PerPlayerFarm: Engenharia de um Multiplayer para Stardew Valley',
+		excerpt:
+			'Um mergulho técnico na criação de um mod em C# para Stardew Valley que transforma o multiplayer, dando a cada jogador sua própria fazenda, evitando conflitos por recursos, explorando soluções avançadas sem depender de Harmony.',
 		author: 'Jadiael Juvino',
-		date: '2025-11-15T00:00:00-03:00',
-		readTime: 8,
+		date: '2026-02-15T00:00:00-03:00',
+		readTime: 12,
 		tags: [
-			'GTA San Andreas',
-			'Cheat Engine',
-			'Automação',
-			'Memória',
-			'Games',
-			'Teleporte',
-			'Rockstar Games Launcher',
-			'Portfólio',
+			'Stardew Valley',
+			'Game Modding',
+			'SMAPI',
+			'CSharp',
+			'DotNet 6',
+			'Pathoschild ModBuildConfig',
+			'Multiplayer',
+			'Game Development',
+			'Open Source',
 		],
 		image: '',
 		featured: false,
+		content: `
+			# PerPlayerFarm: minha experiência criando um MOD em C# para Stardew Valley
+
+			Se você quer baixar o MOD e ver detalhes de uso, ele já está publicado aqui:
+			<a target="_blank" rel="noopener noreferrer" class="text-blue-500" href='https://www.nexusmods.com/stardewvalley/mods/38441'>https://www.nexusmods.com/stardewvalley/mods/38441</a>
+
+			---
+
+			## 1) Começo: documentação e as duas formas de criar mods
+
+			Eu gostaria de compartilhar a experiência que tive na criação deste MOD para um jogo chamado Stardew Valley.
+
+			A primeira coisa que eu fiz foi procurar uma documentação. Eu encontrei a principal aqui:
+			<a target="_blank" rel="noopener noreferrer" class="text-blue-500" href='https://stardewvalleywiki.com/Modding:Index'>https://stardewvalleywiki.com/Modding:Index</a>
+
+			Essa documentação mostra que é possível criar mods de duas formas:
+
+			- **Content Mods (Content Packs)**: nessa opção, seu mod depende de um framework (por exemplo, Content Patcher) e normalmente consiste em arquivos de texto formatado (como JSON). Na prática, você cria um pacote de conteúdo e ele é aplicado por outro mod que faz o carregamento e a interpretação.
+			- **Mods em C# (SMAPI mods)**: na minha opinião, essa opção entrega mais liberdade, porque você consegue trabalhar com código, lógica e integrações mais profundas.
+
+			Eu preferi **não** aderir à primeira opção, porque tenho em mente que, dependendo do que eu queira desenvolver, manter tudo apenas via JSON pode virar algo que eu não queira dar manutenção no futuro.
+
+			Então, a partir daqui eu falo da segunda opção: **desenvolver com C#**.
+
+			---
+
+			## 2) Base técnica: ModBuildConfig, eventos, Harmony e ferramentas de análise
+
+			Na segunda opção existe um pacote recomendado pela própria documentação para facilitar o setup do projeto:
+
+			<a target="_blank" rel="noopener noreferrer" class="text-blue-500" href='https://www.nuget.org/packages/Pathoschild.Stardew.ModBuildConfig'>https://www.nuget.org/packages/Pathoschild.Stardew.ModBuildConfig</a>
+
+			A versão que usei foi a mais nova na data em que eu preparei o projeto: **4.4.0**.
+
+			O papel desse pacote, na prática, é automatizar configurações do build e deixar o projeto pronto para você consumir as referências do jogo/SMAPI com o mínimo de dor de cabeça. Com isso, o fluxo fica bem natural para trabalhar com o estilo de mod em C#, que é baseado em:
+
+			- **escutar eventos do SMAPI** para reagir ao que acontece no jogo;
+			- usar as **classes, propriedades e métodos** do próprio jogo;
+			- descobrir coisas via documentação, IntelliSense, debug, fóruns e lendo outros mods de código aberto.
+
+			Esse ecossistema também permite usar **Harmony** caso seja necessário sobrescrever ou interceptar comportamento do jogo quando você não encontra suporte direto em APIs/eventos.
+
+			E, quando o objetivo é entender o que o código do jogo faz por baixo dos panos, uma ferramenta como **ILSpy** ajuda bastante para decompilar e analisar o comportamento interno.
+
+			---
+
+			## 3) Requisito de .NET: por que .NET 6.x?
+
+			Hoje, a versão de .NET que é requisito/suportada para criação de mods em C# (no ecossistema atual do Stardew/SMAPI) é a **6.x**.
+
+			A própria documentação explica o motivo (e deixa claro o problema do EOL):
+
+			"That's the version installed and used by the game. Newer versions may not be installed for players, and SMAPI may not be able to load them. Yes we know it's EOL."
+
+			Ou seja: mesmo que existam versões mais novas do .NET, elas podem não estar instaladas para os jogadores, e o SMAPI pode não conseguir carregar.
+
+			Por isso, as configurações do projeto (principalmente o csproj) precisam ser revisadas e alinhadas com esse alvo. Para isso, existe documentação na página do pacote no NuGet, incluindo as opções recomendadas.
+
+			Com esses pontos levantados, o próximo passo é criar uma solution com um projeto do tipo **Class Library**, e ter como entrada o arquivo **ModEntry.cs**, que é onde você registra e centraliza a escuta dos eventos do mod.
+
+			---
+
+			## 4) Inspiração: por que eu quis criar este MOD?
+
+			Eu não jogo com tanta frequência (na verdade é bem raro), mas um dia fui convidado por um grupo de amigos a jogar. E, para mim, é inevitável não analisar como as coisas funcionam por trás e não imaginar a linha de raciocínio do desenvolvedor.
+
+			Jogando multiplayer, eu não pude deixar de reparar que, apesar do jogo suportar multiplayer nativamente, ele é bem mais focado no modo solo.
+
+			No modo solo:
+
+			- o jogador tem uma fazenda só para ele;
+			- o jogo já foi pensado para entregar dificuldade e progressão com base nessa fazenda individual;
+			- recursos como madeira, pedra, grama, fibra etc. podem ficar escassos com o tempo;
+			- chega uma hora que você precisa replantar árvores para madeira, espalhar/recuperar grama, e até depender de itens como sementes de fibra (que você só consegue bem depois no jogo) para manter a produção.
+
+			Então, se o jogo espera que no solo o jogador já lide com escassez, imagine no multiplayer com 4 jogadores (ou mais) disputando exatamente os mesmos recursos. O resultado natural é:
+
+			- ninguém consegue progredir da mesma forma que no solo;
+			- leva bem mais tempo;
+			- exige bem mais conhecimento para buscar outras formas de obter os mesmos recursos.
+
+			E ainda tem o problema de espaço: como 4 jogadores (ou mais) vão organizar tudo em uma única fazenda, se cada um pode ter construções e plantações próprias? O espaço fica escasso também.
+
+			O próprio jogo acaba promovendo disputa em alguns cenários:
+			- existe a opção de separar o dinheiro por jogador;
+			- as casas, nativamente, já são separadas (cada um tem a sua).
+
+			A conclusão fica bem direta: se cada jogador tivesse a sua fazenda, seria possível seguir o mesmo fluxo de progressão que o desenvolvedor pensou para o modo solo, sem transformar o multiplayer em uma briga constante por recurso e por espaço.
+
+			E a história de lançamento reforça essa sensação:
+			- Stardew Valley foi lançado para PC em fevereiro de 2016 como um jogo exclusivamente single-player.
+			- A atualização 1.3 (que trouxe cooperativo) saiu oficialmente para PC em 1º de agosto de 2018, mais de dois anos depois do lançamento inicial.
+			- E, mesmo hoje, em plataformas como mobile, o multiplayer fica escondido e é tratado como experimental.
+
+			Essa foi minha inspiração para criar o MOD.
+
+			---
+
+			## 5) O que o MOD faz (detalhado)
+
+			A ideia central é: **cada jogador convidado (farmhand) ganha a própria fazenda**.
+
+			### 5.1) Fazendas individuais para convidados
+			- O MOD adiciona uma fazenda para cada jogador convidado que entrar.
+
+			#### 5.1.1) Tipo de fazenda configurável
+			- Por padrão, a fazenda do convidado é do mesmo tipo da fazenda que o host escolheu ao criar o save.
+			- Mas existe no config.json do MOD uma opção para dizer que os convidados podem receber qualquer outro tipo de fazenda nativa do jogo.
+
+			### 5.2) Entradas da fazenda principal redirecionadas
+			- Eu modifiquei as entradas da fazenda principal (a fazenda vanilla que o jogo cria nativamente).
+			- Essa modificação permite direcionar cada jogador de forma condicional:
+			- o host continua indo para a fazenda principal;
+			- cada convidado cai na sua própria fazenda.
+
+			### 5.3) Menu de viagem entre fazendas (teleporte)
+			- Eu adicionei um menu de teleporte.
+			- Ao apertar a tecla K (configurada por padrão no config.json) e estando em uma das fazendas (seja do host ou de um convidado), o menu abre.
+			- Esse menu permite viajar entre as fazendas:
+			- tanto para a fazenda do host quanto para as dos convidados;
+			- tanto o host quanto os convidados conseguem usar.
+
+			### 5.4) Comando de limpeza das fazendas dos convidados
+			- Eu adicionei um comando para limpeza apenas das fazendas dos convidados.
+			- Eu não considero esse comando algo "legal" de usar em gameplay normal, porque a ideia é que o jogador limpe da forma tradicional que o jogo espera, não por comando.
+			- Mesmo assim, ele existe e um jogador convidado não consegue usar ele na fazenda de outro jogador convidado, apenas na sua.
+			- Apenas o jogador Host consegue limpar a de qualquer convidado, e tambem consegue passar uma flag \`all\` para o comando que limpa a de todos os jogadores convidados. 
+			- O comando remove:
+			- árvores,
+			- fibras,
+			- pedras,
+			- pedras grandes,
+			- troncos,
+			- troncos grandes,
+			- gramas.
+
+			### 5.5) Saída das casas dos convidados redirecionada
+			- Eu modifiquei a saída das casas vanilla apenas dos jogadores convidados.
+			- Quando o convidado sai da própria casa, ele ou qualquer outro jogador que sair pela casa dele, é levado para frente da FarmHouse que existe na fazenda individual dele.
+
+			Isso acontece porque:
+			- a fazenda do convidado herda da classe Farm;
+			- a FarmHouse dessa fazenda recebe uma ação na porta pelo Mod:
+			- quem interage com a porta entra na casa do dono daquela fazenda de convidado.
+
+			---
+
+			## 6) Configurações (como ligar/desligar o comportamento)
+
+			Eu adicionei configurações para controlar como o modo deve funcionar.
+
+			- Se você não quiser que os convidados sejam redirecionados para a própria fazenda ao sair da casa, dá para desativar mudando apenas uma propriedade booleana no config.json.
+			- Se você não quiser que, nas entradas para a fazenda principal, cada convidado seja levado para sua fazenda (e quiser que o teleporte nativo funcione levando todos para a fazenda principal), dá para fazer mudando apenas uma propriedade booleana no config.json.
+			- Se quiser mudar a tecla padrão que abre o menu de viagem entre fazendas, é só mudar uma propriedade do tipo string no config.json.
+			- Se quiser que os convidados parem de receber o mesmo tipo de fazenda do host, dá para configurar mudando uma propriedade do tipo string no config.json e informando qual tipo de fazenda os convidados devem receber.
+
+			---
+
+			## 7) Desafios técnicos que eu encontrei
+
+			### 7.1) O maior desafio: interceptar teleporte antes do warp (sem Harmony)
+			A biblioteca e o ecossistema que eu estava usando não me davam um evento para eu ouvir quando um jogador:
+			- vai ser teleportado, ou
+			- está em processo de teleporte.
+
+			O que existe é evento apenas para quando ele **já foi teleportado**.
+
+			Isso até ajudaria a redirecionar o convidado ao chegar na fazenda, mas abriu problemas que eu não quis aceitar como solução principal.
+
+			O motivo:
+
+			- A borda do mapa que faz o teleporte sempre manda os jogadores para a fazenda vanilla do host (aquela escolhida na criação do save).
+			- Mas e se os convidados tiverem tipo de fazenda diferente do host?
+			- Se eu só recebo um evento depois do teleporte, e esse evento me diz apenas:
+			- quem foi teleportado,
+			- e de onde veio,
+			isso não me entrega o destino original, nem detalhes suficientes para eu redirecionar com precisão sem gerar efeitos colaterais.
+
+			E ainda teria o problema do "duplo teleporte":
+			- o jogador seria teleportado primeiro para a fazenda vanilla do host,
+			- e só depois eu forçaria um segundo teleporte para a fazenda correta do convidado.
+
+			Eu não aceitei isso como a única forma.
+
+			### 7.2) A solução indireta que eu implementei
+			Investigando e adquirindo conhecimento, eu encontrei uma forma indireta que entregou o que eu queria.
+
+			Em vez de depender do teleporte nativo da borda do mapa, eu fiz o seguinte:
+
+			1) Eu edito via código os mapas que dão acesso direto à fazenda principal.
+			2) Eu removo das propriedades de teleporte desses mapas os warps vanilla para a fazenda.
+			3) Nos tiles que antes tinham teleporte, eu adiciono ações minhas (actions).
+			4) Quando a action dispara, eu redireciono cada jogador condicionalmente para a fazenda dele.
+
+			Porém, existia um detalhe importante:
+			- havia teletransportes em tiles que ficam fora da borda do mapa;
+			- actions registradas em tiles não disparam se o tile não estiver dentro da borda do mapa.
+
+			Então eu precisei tratar isso:
+			- identificar o tile mais próximo da borda que fosse válido para receber a action.
+
+			E também precisei editar os mapas das fazendas que dão acesso aos mapas de entrada que eu editei:
+			- para evitar que o jogador caísse exatamente no tile onde eu registrei a action, causando comportamentos estranhos.
+
+			Na prática, a solução foi:
+			- remover o teleporte nativo do jogo,
+			- e substituir por um meu.
+
+			Para isso, eu usei eventos disparados ao abrir o save (onde eu consigo acessar os mapas do jogo) e criei uma função para escutar as actions registradas nos tiles.
+
+			#### Ponto negativo dessa abordagem
+			Se outros mods usarem os valores de teleporte que ficam nas propriedades desses mapas (que eu editei), eles com certeza não vão achar o que esperam.
+
+			---
+
+			## 8) Outro desafio: fazendas de convidados herdando da classe Farm e DefaultBuildings
+
+			Como eu já mencionei, as fazendas dos convidados herdam da classe Farm.
+
+			Com isso, elas acabam, em algum momento, recebendo DefaultBuildings. Em alguns testes eu até forcei para a fazenda já ser criada com DefaultBuildings desde cedo.
+
+			DefaultBuildings inclui:
+			- Farmhouse
+			- Greenhouse
+			- PetBowl
+			- Shipping
+
+			O problema é que alguns eventos nativos do jogo acabam sendo redirecionados para as fazendas dos convidados, o que gera bugs. E eu precisei tratar tudo o que encontrei, porque nem tudo na classe Farm me permite desativar apenas pela instância do objeto.
+
+			Eu poderia ter resolvido muita coisa com menos "arrodeio" usando Harmony, mas eu levei em consideração a compatibilidade com outros mods:
+			- ou meu mod poderia acabar quebrando outros mods que mexem nas mesmas coisas,
+			- ou meu mod poderia ser impactado por modificações de outros mods.
+
+			Então a ideia foi realmente ficar o máximo possível no fluxo baseado no pacote Pathoschild.Stardew.ModBuildConfig e nos eventos/APIs, evitando patching direto como caminho principal.
+
+			---
+
+			## 9) Links onde eu documentei problemas e acompanhamento
+
+			Alguns desafios que eu encontrei e documentei para melhorias futuras:
+
+			- Discussão técnica (redirecionar farmhands antes do warp sem Harmony e evitando duplo warp):
+			<a target="_blank" rel="noopener noreferrer" class="text-blue-500" href='https://forums.nexusmods.com/topic/13530978-redirect-farmhands-before-warp-without-harmony-avoiding-double-warp/'>https://forums.nexusmods.com/topic/13530978-redirect-farmhands-before-warp-without-harmony-avoiding-double-warp/</a>
+
+			- Página de bugs do MOD:
+			<a target="_blank" rel="noopener noreferrer" class="text-blue-500" href='https://www.nexusmods.com/stardewvalley/mods/38441?tab=bugs'>https://www.nexusmods.com/stardewvalley/mods/38441?tab=bugs</a>
+			
+		`,
 	},
 ];
 

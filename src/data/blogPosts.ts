@@ -33,7 +33,7 @@ export const blogPosts: BlogPost[] = [
 			'LearnDash',
 		],
 		image: '',
-		featured: true,
+		featured: false,
 		content: `
 # Sincronização Bidirecional entre Oracle e WordPress com API Intermediadora
 Um desafio recente foi manter uma **sincronização de dados em dois sentidos** entre um banco de dados **Oracle (SENIOR)** e uma plataforma **LMS baseada em WordPress**.
@@ -708,6 +708,356 @@ A mesma disciplina que aplico em integrações reais e soluções corporativas �
 			- Página de bugs do MOD:
 			<a target="_blank" rel="noopener noreferrer" class="text-blue-500" href='https://www.nexusmods.com/stardewvalley/mods/38441?tab=bugs'>https://www.nexusmods.com/stardewvalley/mods/38441?tab=bugs</a>
 			
+		`,
+	},
+	{
+		id: '4',
+		title: 'Counter-Strike 1.6: engenharia, modding e deploy de um servidor clássico em produção',
+		excerpt:
+			'Do estudo das possibilidades ao deploy real: como transformei um servidor de Counter-Strike 1.6 em um projeto completo de infraestrutura, Docker, Linux, AMX Mod X, Pawn, ReHLDS, automação, plugins próprios e estatísticas web em produção.',
+		author: 'Jadiael Juvino',
+		date: '2026-07-05T00:00:00-03:00',
+		readTime: 14,
+		tags: [
+			'Counter-Strike 1.6',
+			'Docker',
+			'Docker Compose',
+			'Linux',
+			'Sysadmin',
+			'AMX Mod X',
+			'Pawn',
+			'ReHLDS',
+			'ReGameDLL',
+			'ReAPI',
+			'Metamod',
+			'PsychoStats',
+			'MariaDB',
+			'Nginx',
+			'Game Server',
+		],
+		image: '',
+		featured: false,
+		content: `
+# Counter-Strike 1.6: engenharia, modding e deploy de um servidor clássico em produção
+
+Este projeto nasceu de uma pergunta simples: **até onde dá para levar um servidor de Counter-Strike 1.6 quando ele é tratado como um produto de software real?**
+
+A resposta virou um laboratório completo de engenharia: infraestrutura em Linux, imagem Docker reproduzível, configuração por ambiente, deploy em produção, programação de plugins, integração com banco de dados, página web de estatísticas, FastDL, automação operacional e ajustes finos de gameplay.
+
+Antes de sair instalando ferramentas, eu fiz uma investigação técnica para entender quais caminhos existiam:
+
+- servidor HLDS tradicional;
+- stack modernizada com ReHLDS e ReGameDLL;
+- Metamod como camada de plugins nativos;
+- AMX Mod X como plataforma de plugins;
+- ReAPI para acessar recursos avançados da stack ReHLDS;
+- Reunion para compatibilidade do ecossistema do servidor;
+- PsychoStats para transformar logs de partida em estatísticas web;
+- Docker e Docker Compose para deixar o ambiente reproduzível.
+
+O resultado está em produção:
+
+- **Servidor CS 1.6:** \`187.77.246.75:27015\`
+- **Estatísticas web:** <a target="_blank" rel="noopener noreferrer" class="text-blue-500" href='http://187.77.246.75'>http://187.77.246.75</a>
+
+---
+
+## Para quem está com pressa
+
+Este projeto demonstra, de forma prática, competências que vão além de simplesmente subir um jogo antigo em uma VPS.
+
+Em um único ambiente eu trabalhei com:
+
+- **Docker** para empacotar o servidor de forma reproduzível;
+- **Docker Compose** para orquestrar build, portas, variáveis e política de restart;
+- **.env** para separar configuração sensível e configuração de ambiente;
+- **Linux sysadmin** para preparar dependências, permissões, serviços e processos;
+- **SteamCMD** para baixar e validar o HLDS com Counter-Strike 1.6;
+- **Metamod e AMX Mod X** para carregar e organizar plugins;
+- **Pawn** para desenvolver e modificar plugins \`.sma\`;
+- **ReHLDS, ReGameDLL e ReAPI** para uma base mais moderna, configurável e extensível;
+- **MariaDB, PHP, Perl e Nginx** para disponibilizar PsychoStats na web;
+- **FastDL** para entrega eficiente de assets personalizados;
+- **automação de build e deploy** para reduzir trabalho manual e evitar inconsistências.
+
+Na prática, é um projeto de **backend, infraestrutura, DevOps, modding e produto** aplicado a um cenário real, com usuários reais e servidor acessível publicamente.
+
+---
+
+## 1) Pesquisa antes da implementação
+
+O primeiro desafio não foi técnico, foi estratégico.
+
+Counter-Strike 1.6 tem um ecossistema antigo, com muita informação espalhada em fóruns, repositórios, arquivos de configuração e plugins legados. Então a primeira etapa foi entender quais peças ainda faziam sentido em um servidor moderno.
+
+Eu investiguei:
+
+- como instalar o HLDS de forma limpa;
+- quais binários seriam usados no Linux;
+- como substituir a base tradicional por ReHLDS e ReGameDLL;
+- como manter compatibilidade com Metamod, AMX Mod X e ReAPI;
+- como compilar plugins \`.sma\` dentro do próprio ambiente;
+- como lidar com bots, mapas, modelos, sons e arquivos adicionais;
+- como publicar estatísticas do servidor em uma página web;
+- como preparar um deploy que pudesse ser reproduzido depois sem depender de memória manual.
+
+Essa etapa foi importante porque evitou decisões por tentativa e erro. O objetivo foi criar uma base sólida para evoluir o servidor sem transformar cada mudança em manutenção manual frágil.
+
+---
+
+## 2) Docker como base reproduzível
+
+A imagem Docker concentra a montagem do servidor.
+
+Ela parte de \`ubuntu:22.04\` e prepara um ambiente Linux com suporte a bibliotecas de 32 bits, dependências de rede, ferramentas de build, PHP, MariaDB, Perl, Nginx e utilitários necessários para o servidor e para a camada web.
+
+A escolha por Docker foi intencional:
+
+- o servidor pode ser reconstruído do zero;
+- as dependências ficam documentadas no próprio \`Dockerfile\`;
+- a instalação deixa de depender de passos manuais soltos;
+- os binários usados ficam explícitos;
+- os plugins são copiados, compilados e ativados durante a build;
+- a configuração base fica versionável e auditável.
+
+Em vez de tratar o servidor como uma pasta editada manualmente em produção, tratei como um ambiente que pode ser recriado, testado e ajustado com previsibilidade.
+
+---
+
+## 3) Docker Compose e configuração por ambiente
+
+O \`compose.yml\` organiza a execução do container, define portas expostas, política de restart, argumentos de build e variáveis de ambiente.
+
+Algumas decisões importantes:
+
+- porta \`27015\` exposta em UDP e TCP para o servidor;
+- portas auxiliares para comunicação do servidor, FastDL e painel web;
+- \`restart: always\` para manter o serviço disponível após falhas ou reinício da máquina;
+- uso de variáveis para nome do servidor, mapa inicial, máximo de jogadores, porta, senha RCON e configurações do PsychoStats;
+
+O \`.env\` entra como camada de parametrização. Assim, o mesmo projeto pode ser adaptado para outro ambiente sem reescrever o Dockerfile.
+
+Essa separação é uma prática importante de engenharia: código e configuração caminham juntos, mas não devem ser a mesma coisa.
+
+---
+
+## 4) SteamCMD e HLDS
+
+A instalação do Counter-Strike 1.6 é feita com SteamCMD usando login anônimo e atualização do app do HLDS.
+
+Durante a build, o processo valida arquivos essenciais como:
+
+- \`hlds_run\`;
+- \`hlds_linux\`;
+- \`engine_i486.so\`;
+- diretório \`cstrike\`.
+
+Essa validação é simples, mas importante. Ela impede que a imagem continue sendo construída quando uma etapa crítica falha silenciosamente.
+
+Também configurei bibliotecas compartilhadas da Steam em \`~/.steam/sdk32\`, um detalhe necessário em muitos ambientes Linux para evitar erro de runtime ao iniciar servidores baseados em HLDS.
+
+---
+
+## 5) Metamod, AMX Mod X e Pawn
+
+A camada de modding foi montada com Metamod e AMX Mod X.
+
+O Metamod funciona como uma ponte entre o motor do HLDS e extensões carregadas no servidor. O AMX Mod X entra como plataforma de plugins, permitindo criar regras, comandos, menus, automações e recursos de gameplay.
+
+A parte de programação acontece em **Pawn**, por meio dos arquivos \`.sma\`, que são compilados para \`.amxx\` usando o \`amxxpc\`.
+
+Esse ponto foi um dos mais interessantes do projeto porque mistura engenharia de software com entendimento do ciclo de vida do jogo:
+
+- eventos de rodada;
+- spawn de jogadores;
+- menus em jogo;
+- comandos de chat;
+- permissões administrativas;
+- times T e CT;
+- armas e equipamentos;
+- bots;
+- placar, frags, morte, revive e votação.
+
+Na prática, cada plugin precisa respeitar o estado do jogo. Não basta escrever uma função: é necessário entender quando ela roda, quem pode executá-la, em qual time o jogador está e qual impacto isso causa na partida.
+
+---
+
+## 6) ReHLDS, ReGameDLL e ReAPI
+
+A stack foi modernizada com ReHLDS, ReGameDLL e ReAPI.
+
+Essa escolha abriu espaço para configurações e integrações mais avançadas do que uma instalação tradicional.
+
+No Dockerfile, o processo baixa versões específicas dos binários, copia os arquivos corretos para o HLDS e substitui a GameDLL do Counter-Strike pelo \`cs.so\` do ReGameDLL.
+
+Depois disso, o \`game.cfg\` é ajustado para o comportamento desejado do servidor:
+
+- sem balanceamento automático forçado;
+- bots entrando mesmo sem jogador humano;
+- delay controlado para entrada de bots;
+- tempo de compra sem limite;
+- limite de times removido;
+- prefixo personalizado para bots;
+- preferência de entrada dos bots no time CT.
+
+A ReAPI foi usada como módulo para AMX Mod X, permitindo plugins com chamadas mais modernas e controle mais fino sobre comportamentos do jogo.
+
+---
+
+## 7) Plugins: entre reaproveitamento, adaptação e desenvolvimento próprio
+
+O servidor mistura três tipos de plugins:
+
+- plugins públicos baixados e adaptados;
+- plugins legados reaproveitados com ajustes;
+- plugins desenvolvidos do zero para necessidades específicas do Jat-Strike.
+
+Entre os recursos trabalhados estão:
+
+- menu de armas;
+- skins personalizadas para armas e jogadores;
+- sistema de VIP;
+- kit de desarme entregue apenas no fluxo correto;
+- contador visual de frags;
+- mensagens e HUDs administrativos;
+- sons personalizados;
+- paraquedas;
+- reset de score;
+- assistência de kill;
+- votação para reiniciar round;
+- votação para remover bots;
+- votação para repor bots;
+- reposição automática de bots quando o servidor esvazia;
+- troca automática de times a cada 15 rounds;
+- revive de companheiros;
+- ajuste de tempo de cadáver;
+- correções para evitar jogador travado ou bugado.
+
+Esse trabalho exigiu leitura de código existente, depuração, adaptação de APIs antigas, compilação, testes em servidor real e cuidado para não quebrar plugins que já estavam funcionando.
+
+Uma das decisões mais importantes foi separar o que era configuração do que era código. Quando uma regra podia ser resolvida por \`.cfg\` ou \`.ini\`, ela ficava fora do plugin. Quando precisava reagir a eventos do jogo, virava lógica em Pawn.
+
+---
+
+## 8) Bots, gameplay e experiência do jogador
+
+Um servidor vazio não convida ninguém a jogar. Por isso, os bots foram tratados como parte da experiência do produto.
+
+Foram ajustados pontos como:
+
+- quantidade máxima de bots;
+- time preferencial dos bots;
+- entrada automática ao iniciar o servidor;
+- reposição quando o servidor fica vazio;
+- remoção via votação;
+- retorno via votação;
+- dificuldade e perfis de bots;
+- nomes personalizados;
+- comportamento para evitar desequilíbrio entre times.
+
+Esse tipo de ajuste parece simples, mas envolve muitos detalhes. Um bot entrando no momento errado pode atrapalhar uma votação, desequilibrar o round ou criar uma experiência ruim para o jogador humano.
+
+A solução foi tratar bots como parte da regra de negócio do servidor, não apenas como uma configuração solta.
+
+---
+
+## 9) Assets, FastDL e personalização visual
+
+O servidor também ganhou uma camada visual própria.
+
+Foram configurados:
+
+- modelos de armas;
+- modelos de jogadores;
+- sons customizados;
+- imagem de MOTD;
+- arquivos de mapas;
+- proteção para não servir arquivos sensíveis no FastDL.
+
+O FastDL melhora a experiência de entrada do jogador, porque arquivos adicionais são baixados via HTTP em vez de depender apenas do canal do jogo.
+
+Também houve cuidado com segurança operacional: nem tudo que está no servidor deve estar disponível para download público. Por isso, configs, scripts, plugins compilados e bibliotecas foram bloqueados na camada web do FastDL.
+
+---
+
+## 10) PsychoStats: estatísticas web em produção
+
+Além do servidor de jogo, o projeto inclui uma página web de estatísticas em produção.
+
+O PsychoStats foi integrado com:
+
+- Nginx;
+- PHP 7.4;
+- MariaDB;
+- scripts Perl;
+- logs do HLDS;
+- rotina automática de atualização.
+
+A rotina de atualização lê os logs do servidor e processa os dados em intervalos configuráveis. Com isso, as partidas deixam de existir apenas dentro do jogo e passam a gerar histórico consultável.
+
+Essa parte transforma o projeto em algo mais completo: não é apenas um servidor rodando, é um ambiente com observabilidade, ranking, histórico e presença web.
+
+Página pública:
+<a target="_blank" rel="noopener noreferrer" class="text-blue-500" href='http://187.77.246.75'>http://187.77.246.75</a>
+
+---
+
+## 11) Sysadmin e produção
+
+Colocar o servidor em produção exigiu decisões típicas de administração de sistemas:
+
+- abertura correta de portas UDP e TCP;
+- organização de serviços dentro do container;
+- inicialização de MariaDB, PHP-FPM, Nginx, SSHD e HLDS;
+- permissões entre usuário \`steam\` e \`www-data\`;
+- isolamento de arquivos sensíveis;
+- política de restart;
+- logs persistentes o suficiente para estatísticas;
+- scripts auxiliares para update do PsychoStats;
+- análise de latência e rotas de rede;
+- testes em Windows e Linux durante a evolução do projeto.
+
+Também houve investigação de infraestrutura para reduzir latência para jogadores no Brasil e em Portugal, comparando cenários de VPS, rotas e localização geográfica.
+
+Esse tipo de trabalho é onde desenvolvimento e operação se encontram. O código precisa funcionar, mas o processo também precisa sobreviver ao mundo real.
+
+---
+
+## 12) O que esse projeto mostra sobre minha forma de trabalhar
+
+Para recrutadores e leitores técnicos, este projeto mostra uma combinação que considero essencial:
+
+- eu investigo antes de implementar;
+- documento decisões no próprio ambiente;
+- automatizo o que pode ser repetido;
+- separo configuração de código;
+- valido arquivos críticos durante a build;
+- adapto código legado sem quebrar comportamento existente;
+- desenvolvo plugins sob medida quando a solução pronta não atende;
+- penso em UX mesmo em um servidor de jogo;
+- levo projetos pessoais até produção real.
+
+O mais importante: esse projeto não ficou apenas no “funciona na minha máquina”.
+
+Ele foi empacotado, configurado, publicado, testado e disponibilizado para jogadores.
+
+---
+
+## 13) Principais aprendizados
+
+Esse projeto reforçou alguns aprendizados importantes:
+
+- sistemas antigos continuam ensinando fundamentos modernos;
+- infraestrutura reproduzível reduz risco operacional;
+- automação economiza tempo e evita erro humano;
+- plugins pequenos podem ter grande impacto na experiência final;
+- logs e estatísticas aumentam o valor do produto;
+- modding é uma excelente escola de engenharia reversa leve, eventos, estado e compatibilidade;
+- um bom projeto pessoal pode demonstrar habilidades reais de mercado.
+
+Counter-Strike 1.6 é um jogo clássico, mas a engenharia por trás desse servidor é totalmente atual.
+
+No fim, o Jat-Strike virou mais do que um servidor de nostalgia. Virou uma vitrine prática de Docker, Linux, redes, backend, automação, banco de dados, modding e pensamento de produto.
 		`,
 	},
 ];

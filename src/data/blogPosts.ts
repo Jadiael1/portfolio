@@ -297,6 +297,14 @@ Também incluí:
 
 ---
 
+## Save com todas missões securandarias concluidas, sem nenhum progresso realizado nas missões primarias.
+### Concluindo as missões primarias 100% deverá ser alcançado!
+
+- <a target="_blank" rel="noopener noreferrer" class="text-blue-500" href='https://drive.usercontent.google.com/u/0/uc?id=1R07qOEngfFcYFJ4DwzYrv1SQQRaX09D_&export=download'>GTASAsf1.b.todas_missoes_secundarias_concluidas</a>
+
+
+---
+
 ## Lista de missões trabalhadas
 
 - <a target="_blank" rel="noopener noreferrer" class="text-blue-500" href='https://drive.usercontent.google.com/u/0/uc?id=1POkz2zTOSX7nkzYA1K3g0itIfp53N6xV&export=download'>GTASAsf1.b.fim_da_linha</a>

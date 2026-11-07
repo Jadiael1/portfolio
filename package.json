@@ -6,7 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@radix-ui/react-label": "^2.1.7",
@@ -15,7 +15,7 @@
     "@radix-ui/react-toast": "^1.2.15",
     "class-variance-authority": "^0.7.1",
     "lucide-react": "^0.539.0",
-    "next": "^15.5.20",
+    "next": "15.5.29",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "tailwind-merge": "^3.3.1"
@@ -26,14 +26,20 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@typescript-eslint/eslint-plugin": "8.72.1",
+    "@typescript-eslint/parser": "8.72.1",
     "eslint": "^9",
-    "eslint-config-next": "^15.5.20",
+    "eslint-config-next": "15.5.29",
     "tailwindcss": "^4",
     "typescript": "^5"
   },
   "overrides": {
     "next": {
-      "postcss": "8.5.10"
+      "postcss": "8.5.23",
+      "sharp": "0.35.5"
+    },
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "11.0.5"
     }
   },
   "allowScripts": {

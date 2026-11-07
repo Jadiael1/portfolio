@@ -1,74 +1,99 @@
-name: Deploy Next.js App
-permissions:
-  contents: read
+name: Build Portfolio Frontend
 
 on:
   push:
-    branches:
-      - main
+    branches: [main, develop]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: jadiael-front-${{ github.ref_name == 'main' && 'production' || 'development' }}
+  cancel-in-progress: false
 
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
+  publish:
+    name: Build and Publish Image
+    if: github.ref_name == 'main' || github.ref_name == 'develop'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+
+    environment:
+      name: ${{ github.ref_name == 'main' && 'production' || 'development' }}
+      deployment: false
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v7
         with:
-          node-version: "24.1.0"
+          persist-credentials: false
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
 
-      - name: Build the app
-        run: npm run build
-
-      - name: Reinstall dependencies omitting development dependencies 
-        run: rm -rf ./node_modules; npm ci --omit=dev
-
-      - name: Setup SSH key
-        uses: webfactory/ssh-agent@v0.8.0
+      - name: Login to GHCR
+        uses: docker/login-action@v4
         with:
-          ssh-private-key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Add VPS host to known_hosts
-        run: |
-          ssh-keyscan -p ${{ secrets.VPS_SSH_PORT }} ${{ secrets.VPS_SSH_HOST }} >> ~/.ssh/known_hosts
-
-      - name: Clean VPS directory
-        run: |
-          ssh -p ${{ secrets.VPS_SSH_PORT }} ${{ secrets.VPS_SSH_USER }}@${{ secrets.VPS_SSH_HOST }} "rm -rf ${{ secrets.VPS_APP_DIR }}/node_modules; find ${{ secrets.VPS_APP_DIR }} -ignore_readdir_race -not -name '.env' -mindepth 1 -exec rm -rf {} + || true"
-
-      - name: Deploy to VPS via rsync
-        run: |
-          rsync -avz --delete -e "ssh -p ${{ secrets.VPS_SSH_PORT }}" --include='.next/***' --include='public/***' --include='node_modules/***' --include='package.json' --include='package-lock.json' --include='next.config.ts' --exclude '.env' --exclude='*' ./ ${{ secrets.VPS_SSH_USER }}@${{ secrets.VPS_SSH_HOST }}:${{ secrets.VPS_APP_DIR }}/
-
-      - name: Fix Next Perms on VPS
-        uses: appleboy/ssh-action@v1.0.0
+      - name: Build and publish frontend
+        uses: docker/build-push-action@v7
         with:
-          host: ${{ secrets.VPS_SSH_HOST }}
-          username: ${{ secrets.VPS_SSH_USER }}
-          key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
-          port: ${{ secrets.VPS_SSH_PORT }}
-          script: |
-            echo "🚀 Corrigindo permissões do projeto Next.js"
-            echo "✅ Ajustando donos..."
-            chown -R ${{ secrets.VPS_SSH_USER }}:${{ secrets.VPS_SSH_USER }} "${{ secrets.VPS_APP_DIR }}"
-            echo "✅ Ajustando permissões básicas..."
-            find "${{ secrets.VPS_APP_DIR }}" -type d -exec chmod 755 {} \;
-            find "${{ secrets.VPS_APP_DIR }}" -type f -exec chmod 644 {} \;
-            echo "✅ Ajustando permissões especiais para node_modules e .next..."
-            chmod -R 755 "${{ secrets.VPS_APP_DIR }}/node_modules"
-            chmod -R 755 "${{ secrets.VPS_APP_DIR }}/.next"
-            echo "✅ Permissões ajustadas com sucesso!"
-      
-      - name: pm2 delete
+          context: .
+          file: ./Dockerfile
+          pull: true
+          push: true
+
+          tags: ghcr.io/jadiael1/portfolio-jadiael-front:${{ github.ref_name == 'main' && 'production' || 'development' }}-${{ github.sha }}
+
+          labels: |
+            org.opencontainers.image.source=https://github.com/Jadiael1/portfolio
+
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  deploy:
+    name: Deploy to VPS
+    needs: publish
+    if: github.ref_name == 'main' || github.ref_name == 'develop'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+
+    environment:
+      name: ${{ github.ref_name == 'main' && 'production' || 'development' }}
+      url: ${{ github.ref_name == 'main' && 'https://jadiael.dev' || 'https://dev.jadiael.dev' }}
+
+    steps:
+      - name: Deploy frontend
+        if: vars.PORTFOLIO_FRONT_DEPLOY_ENABLED == 'true'
+        shell: bash
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.VPS_SSH_DEPLOY_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.VPS_SSH_KNOWN_HOSTS }}
+          SSH_HOST: ${{ secrets.VPS_SSH_HOST }}
+          SSH_PORT: ${{ secrets.VPS_SSH_PORT }}
+          SSH_USER: ${{ secrets.VPS_SSH_USER }}
         run: |
-          ssh -p ${{ secrets.VPS_SSH_PORT }} ${{ secrets.VPS_SSH_USER }}@${{ secrets.VPS_SSH_HOST }} "export PATH=${{ secrets.VPS_NODE_BIN }}:\$PATH;${{ secrets.VPS_NODE_BIN }}/pm2 delete portfoliojjs || true"
-            
-      - name: pm2 start
-        run: |
-          ssh -p ${{ secrets.VPS_SSH_PORT }} ${{ secrets.VPS_SSH_USER }}@${{ secrets.VPS_SSH_HOST }} "export PATH=${{ secrets.VPS_NODE_BIN }}:\$PATH; ${{ secrets.VPS_NODE_BIN }}/pm2 start ${{ secrets.VPS_NODE_BIN }}/node --name portfoliojjs --env production --cwd ${{ secrets.VPS_APP_DIR }} -- ${{ secrets.VPS_APP_DIR }}/node_modules/.bin/next start -p 50008"
+          set -euo pipefail
+
+          test -n "$SSH_PRIVATE_KEY"
+          test -n "$SSH_KNOWN_HOSTS"
+
+          install -d -m 700 ~/.ssh
+
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+
+          chmod 600 ~/.ssh/id_ed25519 ~/.ssh/known_hosts
+
+          ssh -T -p "$SSH_PORT" \
+            -i ~/.ssh/id_ed25519 \
+            -o BatchMode=yes \
+            -o IdentitiesOnly=yes \
+            -o StrictHostKeyChecking=yes \
+            "$SSH_USER@$SSH_HOST" \
+            "deploy $GITHUB_SHA"

@@ -1,0 +1,140 @@
+#!/bin/bash
+set -Eeuo pipefail
+
+export PATH=/usr/sbin:/usr/bin:/sbin:/bin
+export DOCKER_CONFIG=/opt/apps/portfolio-jadiael-front/docker-auth
+
+APP_NAME="portfolio-jadiael-front"
+APP_DIR="/opt/apps/$APP_NAME"
+ENV_FILE="$APP_DIR/.env"
+IMAGE_ENV="production"
+APP_HOST="jadiael.dev"
+
+IMAGE="ghcr.io/jadiael1/$APP_NAME"
+
+if (( EUID != 0 )); then
+    echo "Root privileges required." >&2
+    exit 1
+fi
+
+IFS= read -r NEW_SHA
+
+if [[ ! "$NEW_SHA" =~ ^[0-9a-f]{40}$ ]]; then
+    echo "Invalid commit SHA." >&2
+    exit 1
+fi
+
+NEW_TAG="${IMAGE_ENV}-${NEW_SHA}"
+
+cd "$APP_DIR"
+
+exec 9>"/run/lock/${APP_NAME}-deploy.lock"
+flock -x -w 120 9
+
+if [[ "$(grep -c '^IMAGE_TAG=' "$ENV_FILE")" != "1" ]]; then
+    echo "Expected exactly one IMAGE_TAG entry." >&2
+    exit 1
+fi
+
+OLD_TAG="$(sed -n 's/^IMAGE_TAG=//p' "$ENV_FILE")"
+
+if [[ ! "$OLD_TAG" =~ ^[0-9a-f]{40}$ &&
+      ! "$OLD_TAG" =~ ^production-[0-9a-f]{40}$ ]]; then
+    echo "Invalid current image tag." >&2
+    exit 1
+fi
+
+if [[ "$NEW_TAG" == "$OLD_TAG" ]]; then
+    echo "Version already deployed: $NEW_TAG"
+    exit 0
+fi
+
+set_tag() {
+    sed -i "s/^IMAGE_TAG=.*/IMAGE_TAG=$1/" "$ENV_FILE" || return 1
+    chown root:root "$ENV_FILE" || return 1
+    chmod 600 "$ENV_FILE" || return 1
+}
+
+CHANGED=0
+
+on_exit() {
+    status=$?
+    trap - EXIT
+
+    if (( status != 0 && CHANGED == 1 )); then
+        echo "Deployment failed. Attempting rollback..." >&2
+
+        if set_tag "$OLD_TAG" &&
+           docker compose up \
+                -d \
+                --no-deps \
+                --pull never \
+                --wait \
+                --wait-timeout 120 \
+                web; then
+            echo "Previous image restored." >&2
+        else
+            echo "Automatic rollback failed." >&2
+        fi
+    fi
+
+    exit "$status"
+}
+
+trap on_exit EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
+
+echo "Pulling image: $NEW_TAG"
+
+docker pull "$IMAGE:$NEW_TAG"
+
+echo "Verifying previous image is available..."
+docker image inspect "$IMAGE:$OLD_TAG" >/dev/null
+
+CHANGED=1
+set_tag "$NEW_TAG"
+
+docker compose config --quiet
+
+echo "Updating frontend container..."
+
+docker compose up \
+    -d \
+    --no-deps \
+    --pull never \
+    --wait \
+    --wait-timeout 120 \
+    web
+
+echo "Validating frontend endpoints..."
+
+for endpoint in /; do
+    HEALTHY=0
+
+    for attempt in {1..10}; do
+        if curl \
+            --fail \
+            --silent \
+            --show-error \
+            --max-time 30 \
+            --output /dev/null \
+            --header "Host: $APP_HOST" \
+            "http://127.0.0.1:3006$endpoint"; then
+
+            HEALTHY=1
+            break
+        fi
+
+        sleep 3
+    done
+
+    if (( HEALTHY != 1 )); then
+        echo "Health check failed: $endpoint" >&2
+        exit 1
+    fi
+done
+
+CHANGED=0
+
+echo "Deployment successful: $NEW_TAG"

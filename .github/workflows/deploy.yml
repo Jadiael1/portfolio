@@ -47,6 +47,8 @@ jobs:
           file: ./Dockerfile
           pull: true
           push: true
+          build-args: |
+            NEXT_PUBLIC_DEPLOYMENT_SHA=${{ github.sha }}
 
           tags: ghcr.io/jadiael1/portfolio-jadiael-front:${{ github.ref_name == 'main' && 'production' || 'development' }}-${{ github.sha }}
 

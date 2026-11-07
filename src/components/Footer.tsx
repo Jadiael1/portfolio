@@ -6,6 +6,7 @@ import Github from '@/components/assets/svgs/Github';
 import Linkedin from '@/components/assets/svgs/Linkedin';
 import WhatsAppWidget from '@/components/WhatsAppWidget';
 import Link from 'next/link';
+import DeploymentVersion from '@/components/DeploymentVersion';
 
 const Footer = () => {
 	const [showBackToTop, setShowBackToTop] = useState(false);
@@ -164,14 +165,17 @@ const Footer = () => {
 					{/* Bottom Section */}
 					<div className='mt-16 pt-8 border-t border-hero-text/20'>
 						<div className='flex flex-col md:flex-row justify-between items-center gap-4'>
-							<p className='text-hero-text/80 text-center md:text-left'>
+							<p className='pr-16 text-hero-text/80 text-center md:pr-0 md:text-left'>
 								© <span>{currentYear}</span>{' '}
 								<span className='font-semibold text-hero-text'>Jadiael Juvino</span>. Feito com{' '}
 								<Heart className='inline h-4 w-4 text-red-400 mx-1' /> e muita{' '}
 								<span className='text-primary font-semibold'>dedicação</span>.
 							</p>
 
-							<div className='text-hero-text/60 text-sm'>Pernambuco, Brasil 🇧🇷</div>
+							<div className='flex w-full flex-wrap items-center justify-center gap-x-4 gap-y-2 pr-16 text-center md:w-auto md:justify-end md:pr-20'>
+								<div className='text-hero-text/60 text-sm'>Pernambuco, Brasil 🇧🇷</div>
+								<DeploymentVersion />
+							</div>
 						</div>
 					</div>
 				</div>

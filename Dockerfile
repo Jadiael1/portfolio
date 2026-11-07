@@ -11,6 +11,8 @@ FROM node:24.22.1-bookworm-slim AS builder
 
 WORKDIR /app
 
+ARG NEXT_PUBLIC_DEPLOYMENT_SHA
+
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
 

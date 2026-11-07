@@ -1,0 +1,6 @@
+# Criação da autorização SUDO
+# visudo -f /etc/sudoers.d/jadiael-front-deploy
+# chmod 440 /etc/sudoers.d/jadiael-front-deploy
+# visudo -cf /etc/sudoers.d/jadiael-front-deploy
+# sudo -l -U deploy
+deploy ALL=(root) NOPASSWD: /usr/local/sbin/deploy-portfolio-jadiael-front ""

@@ -1,0 +1,42 @@
+name: credmais-front
+
+services:
+  web:
+    image: ghcr.io/jadiael1/portfolio-jadiael-front:${IMAGE_TAG:?IMAGE_TAG required}
+    restart: unless-stopped
+    init: true
+
+    security_opt:
+      - no-new-privileges:true
+
+    cap_drop:
+      - ALL
+
+    ports:
+      - "127.0.0.1:3006:3000"
+    
+    networks:
+      frontend_trusted:
+        ipv4_address: 172.23.52.10
+
+    environment:
+      NODE_ENV: production
+
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:3000/robots.txt').then(r=>process.exit(r.status===200?0:1)).catch(()=>process.exit(1))"
+      interval: 20s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  frontend_trusted:
+    name: portfolio-jadiael-front-trusted
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.23.52.0/24

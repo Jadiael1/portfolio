@@ -185,7 +185,7 @@ const Footer = () => {
 			{showBackToTop && (
 				<Button
 					onClick={scrollToTop}
-					className='fixed bottom-25 right-8 z-50 w-12 h-12 rounded-full bg-primary hover:bg-primary-glow text-secondary shadow-lg hover:shadow-xl transition-transform duration-200 hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:translate-y-0 cursor-pointer'
+					className='fixed bottom-25 right-8 z-50 w-12 h-12 rounded-full bg-primary hover:bg-primary-glow text-secondary shadow-lg hover:shadow-xl transition-all duration-300 animate-bounce cursor-pointer'
 					aria-label='Voltar ao topo'
 				>
 					<ArrowUp className='h-6 w-6' />
